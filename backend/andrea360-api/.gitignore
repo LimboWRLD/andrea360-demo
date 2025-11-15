@@ -1,0 +1,30 @@
+# Build directories
+bin/
+obj/
+
+# Visual Studio
+*.user
+*.suo
+*.cache
+*.vscode/
+
+.vs
+
+# Rider
+.idea/
+
+# NuGet
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+
+# ASP.NET
+appsettings.*.json
+
+# Others
+*.dll
+*.pdb
+*.exe
+*.runtimeconfig.json
+*.deps.json
