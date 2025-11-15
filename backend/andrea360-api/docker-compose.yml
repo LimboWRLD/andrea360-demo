@@ -1,0 +1,81 @@
+services:
+  webapi:
+    image: ${DOCKER_REGISTRY-}restapi
+    build:
+      context: .
+      dockerfile: RestAPI/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=andrea360;Username=postgres;Password=postgres;
+      - Jwt__ClientId=andrea360-frontend
+      - Jwt__Audience=account
+      - Jwt__Issuer=http://localhost:8080/realms/andrea360-realm
+      - Jwt__MetaDataAddress=http://keycloak:8080/realms/andrea360-realm/.well-known/openid-configuration
+      - Jwt__Authority=http://keycloak:8080/realms/andrea360-realm
+      - Keycloak__ServerUrl=http://keycloak:8080
+    depends_on:
+      - postgres
+      - keycloak
+    networks:
+      - food-order-network
+    ports:
+      - "5000:5000"
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=andrea360
+    volumes:
+      - ./infrastructure/db:/docker-entrypoint-initdb.d/db.sql
+      - andrea360-data:/var/lib/postgresql/data
+    ports:
+      - 5450:5432
+    networks:
+      - andrea360-network
+
+  keycloak_postgres:
+    image: postgres:16
+    container_name: keycloak_postgres
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - andrea360-network
+    ports:
+      - "5437:5433"
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    command: start-dev --import-realm
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL_HOST: keycloak_postgres
+      KC_DB_URL_PORT: 5432
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./keycloak-andrea360.json:/opt/keycloak/data/import/keycloak-andrea360.json
+    depends_on:
+      - keycloak_postgres
+    networks:
+      - andrea360-network
+
+volumes:
+  pg_data:
+  andrea360-data:
+
+networks:
+  andrea360-network:
+    driver: bridge
+
