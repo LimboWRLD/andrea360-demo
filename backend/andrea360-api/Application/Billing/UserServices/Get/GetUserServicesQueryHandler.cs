@@ -1,16 +1,17 @@
 ﻿using Application.Abstractions.Interfaces;
 using Application.Abstractions.Messaging;
 using Domain.Billing;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Billing.UserServices.Get
 {
-    internal sealed class GetUserServicesQueryHandler(IApplicationDbContext context) : IQueryHandler<GetUserServicesQuery, List<UserService>>
+    internal sealed class GetUserServicesQueryHandler(IApplicationDbContext context, IMapper mapper) : IQueryHandler<GetUserServicesQuery, List<GetUserServiceResponse>>
     {
-        public async Task<Result<List<UserService>>> Handle(GetUserServicesQuery request, CancellationToken cancellationToken)
+        public async Task<Result<List<GetUserServiceResponse>>> Handle(GetUserServicesQuery request, CancellationToken cancellationToken)
         {
             List<UserService> result = await context.UserServices.ToListAsync(cancellationToken);
-            return result;
+            return mapper.Map<List<GetUserServiceResponse>>(result);
         }
     }
 }

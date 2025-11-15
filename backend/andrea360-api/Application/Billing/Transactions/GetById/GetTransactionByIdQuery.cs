@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Messaging;
+using Application.Billing.Transactions.Get;
 using Domain.Billing;
 using System;
 using System.Collections.Generic;
@@ -8,4 +9,4 @@ using System.Threading.Tasks;
 
 namespace Application.Billing.Transactions.GetById;
 
-public sealed record GetTransactionByIdQuery(Guid TransactionId) : IQuery<Transaction>;
+public sealed record GetTransactionByIdQuery(Guid TransactionId) : IQuery<GetTransactionResponse>;

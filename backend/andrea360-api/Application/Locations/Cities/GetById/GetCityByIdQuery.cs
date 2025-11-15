@@ -1,6 +1,6 @@
 ﻿using Application.Abstractions.Messaging;
-using Domain.Locations;
+using Application.Locations.Cities.Get;
 
 namespace Application.Locations.Cities.GetById;
 
-public sealed record GetCityByIdQuery(Guid CityId) : IQuery<City>;
+public sealed record GetCityByIdQuery(Guid CityId) : IQuery<GetCityResponse>;

@@ -1,6 +1,9 @@
 ﻿using Application.Abstractions.Behaviors;
+using Application.Common.Mapping;
 using FluentValidation;
 using Keycloak.Net;
+using Mapster;
+using MapsterMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -35,6 +38,12 @@ namespace Application
                     );
             }
             );
+
+            var config = TypeAdapterConfig.GlobalSettings;
+            config.Scan(typeof(MappingConfig).Assembly);
+
+            services.AddSingleton(config);
+            services.AddScoped<IMapper, ServiceMapper>();
 
             return services;
         }

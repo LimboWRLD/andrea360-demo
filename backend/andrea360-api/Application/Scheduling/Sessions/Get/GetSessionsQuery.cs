@@ -8,4 +8,4 @@ using System.Threading.Tasks;
 
 namespace Application.Scheduling.Sessions.Get;
 
-internal class GetSessionsQuery : IQuery<List<Session>>;
+public sealed record GetSessionsQuery : IQuery<List<GetSessionResponse>>;

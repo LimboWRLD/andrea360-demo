@@ -3,4 +3,4 @@ using Domain.Billing;
 
 namespace Application.Billing.Transactions.Get;
 
-public sealed record GetTransactionsQuery : IQuery<List<Transaction>>;
+public sealed record GetTransactionsQuery : IQuery<List<GetTransactionResponse>>;

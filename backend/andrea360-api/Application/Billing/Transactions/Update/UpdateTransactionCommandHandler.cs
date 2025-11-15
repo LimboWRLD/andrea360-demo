@@ -1,14 +1,16 @@
 ﻿using Application.Abstractions.Interfaces;
 using Application.Abstractions.Messaging;
+using Application.Billing.Transactions.Get;
 using Domain.Billing;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Billing.Transactions.Update
 {
-    internal sealed class UpdateTransactionCommandHandler(IApplicationDbContext context)
-        : ICommandHandler<UpdateTransactionCommand, Transaction>
+    internal sealed class UpdateTransactionCommandHandler(IApplicationDbContext context, IMapper mapper)
+        : ICommandHandler<UpdateTransactionCommand, GetTransactionResponse>
     {
-        public async Task<Result<Transaction>> Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
+        public async Task<Result<GetTransactionResponse>> Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
         {
             await using var transaction = await context.BeginTransactionAsync(cancellationToken);
 
@@ -18,7 +20,7 @@ namespace Application.Billing.Transactions.Update
                     .FindAsync([request.TransactionId], cancellationToken);
 
                 if (existingTransaction is null)
-                    return Result.Failure<Transaction>(new Error(
+                    return Result.Failure<GetTransactionResponse>(new Error(
                         "Transaction.NotFound",
                         $"The transaction with id '{request.TransactionId}' was not found.",
                         ErrorType.NotFound));
@@ -27,7 +29,7 @@ namespace Application.Billing.Transactions.Update
                     .AnyAsync(u => u.Id == request.UserId, cancellationToken);
 
                 if (!userExists)
-                    return Result.Failure<Transaction>(new Error(
+                    return Result.Failure<GetTransactionResponse>(new Error(
                         "Transaction.NoUser",
                         $"User with ID {request.UserId} does not exist.",
                         ErrorType.NotFound));
@@ -36,7 +38,7 @@ namespace Application.Billing.Transactions.Update
                     .AnyAsync(s => s.Id == request.ServiceId, cancellationToken);
 
                 if (!serviceExists)
-                    return Result.Failure<Transaction>(new Error(
+                    return Result.Failure<GetTransactionResponse>(new Error(
                         "Transaction.NoService",
                         $"Service with ID {request.ServiceId} does not exist.",
                         ErrorType.NotFound));
@@ -50,7 +52,7 @@ namespace Application.Billing.Transactions.Update
 
                 await transaction.CommitAsync(cancellationToken);
 
-                return Result.Success(existingTransaction);
+                return Result.Success(mapper.Map<GetTransactionResponse>(existingTransaction));
             }
             catch
             {

@@ -1,14 +1,16 @@
 ﻿using Application.Abstractions.Interfaces;
 using Application.Abstractions.Messaging;
+using Application.Billing.Transactions.Get;
 using Domain.Billing;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Billing.Transactions.Create
 {
-    internal sealed class CreateTransactionCommandHandler(IApplicationDbContext context)
-        : ICommandHandler<CreateTransactionCommand, Transaction>
+    internal sealed class CreateTransactionCommandHandler(IApplicationDbContext context, IMapper mapper)
+        : ICommandHandler<CreateTransactionCommand, GetTransactionResponse>
     {
-        public async Task<Result<Transaction>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
+        public async Task<Result<GetTransactionResponse>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
         {
             await using var transaction = await context.BeginTransactionAsync(cancellationToken);
 
@@ -18,7 +20,7 @@ namespace Application.Billing.Transactions.Create
                     .AnyAsync(u => u.Id == request.UserId, cancellationToken);
 
                 if (!userExists)
-                    return Result.Failure<Transaction>(new Error(
+                    return Result.Failure<GetTransactionResponse>(new Error(
                         "Transaction.NoUser",
                         $"User with ID {request.UserId} does not exist.",
                         ErrorType.NotFound));
@@ -27,7 +29,7 @@ namespace Application.Billing.Transactions.Create
                     .AnyAsync(s => s.Id == request.ServiceId, cancellationToken);
 
                 if (!serviceExists)
-                    return Result.Failure<Transaction>(new Error(
+                    return Result.Failure<GetTransactionResponse>(new Error(
                         "Transaction.NoService",
                         $"Service with ID {request.ServiceId} does not exist.",
                         ErrorType.NotFound));
@@ -47,7 +49,7 @@ namespace Application.Billing.Transactions.Create
 
                 await transaction.CommitAsync(cancellationToken);
 
-                return Result.Success(transactionEntity);
+                return Result.Success(mapper.Map<GetTransactionResponse>(transactionEntity));
             }
             catch
             {

@@ -1,8 +1,8 @@
 ﻿using Application.Abstractions.Messaging;
-using Domain.Locations;
+using Application.Locations.Locations.Get;
 
 namespace Application.Locations.Locations.Create;
-public sealed class CreateLocationCommand : ICommand<Location>
+public sealed class CreateLocationCommand : ICommand<GetLocationResponse>
 {
     public string Name { get; set; }
 

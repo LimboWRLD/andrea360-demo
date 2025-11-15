@@ -1,8 +1,9 @@
 ﻿using Application.Abstractions.Messaging;
+using Application.Locations.Addresses.Get;
 
 namespace Application.Locations.Addresses.Create;
 
-public sealed class CreateAddressCommand : ICommand<Guid>
+public sealed class CreateAddressCommand : ICommand<GetAddressResponse>
 {
     public string Number { get; set; }
 

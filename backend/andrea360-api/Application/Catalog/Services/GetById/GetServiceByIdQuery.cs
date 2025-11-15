@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Messaging;
+using Application.Catalog.Services.Get;
 using Domain.Catalog;
 using System;
 using System.Collections.Generic;
@@ -8,4 +9,4 @@ using System.Threading.Tasks;
 
 namespace Application.Catalog.Services.GetById;
 
-public sealed record GetServiceByIdQuery(Guid ServiceId) : IQuery<Service>;
+public sealed record GetServiceByIdQuery(Guid ServiceId) : IQuery<GetServiceResponse>;

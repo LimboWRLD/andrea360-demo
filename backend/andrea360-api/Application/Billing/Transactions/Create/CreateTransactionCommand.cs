@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Messaging;
+using Application.Billing.Transactions.Get;
 using Domain.Billing;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace Application.Billing.Transactions.Create
 {
-    public sealed class CreateTransactionCommand : ICommand<Transaction>
+    public sealed class CreateTransactionCommand : ICommand<GetTransactionResponse>
     {
         public Guid UserId { get; set; }
         public Guid ServiceId { get; set; }

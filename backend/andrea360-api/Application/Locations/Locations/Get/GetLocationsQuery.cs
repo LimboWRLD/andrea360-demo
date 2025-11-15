@@ -3,5 +3,5 @@ using Domain.Locations;
 
 namespace Application.Locations.Locations.Get;
 
-public sealed record GetLocationsQuery : IQuery<List<Location>>;
+public sealed record GetLocationsQuery : IQuery<List<GetLocationResponse>>;
 
