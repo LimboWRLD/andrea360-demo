@@ -8,4 +8,4 @@ using System.Threading.Tasks;
 
 namespace Application.Scheduling.Reservations.Get;
 
-public sealed record GetReservationsQuery : IQuery<List<Reservation>>;
+public sealed record GetReservationsQuery : IQuery<List<GetReservationResponse>>;

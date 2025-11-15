@@ -8,4 +8,4 @@ using System.Threading.Tasks;
 
 namespace Application.Catalog.Services.Get;
 
-public sealed record GetServicesQuery : IQuery<List<Service>>;
+public sealed record GetServicesQuery : IQuery<List<GetServiceResponse>>;

@@ -8,4 +8,4 @@ using System.Threading.Tasks;
 
 namespace Application.Billing.UserServices.Get;
 
-public sealed record GetUserServicesQuery : IQuery<List<UserService>>;
+public sealed record GetUserServicesQuery : IQuery<List<GetUserServiceResponse>>;

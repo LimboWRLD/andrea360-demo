@@ -1,6 +1,8 @@
 ﻿using Application.Abstractions.Interfaces;
 using Application.Abstractions.Messaging;
+using Application.Scheduling.Reservations.Get;
 using Domain.Scheduling;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,20 +12,20 @@ using System.Threading.Tasks;
 
 namespace Application.Scheduling.Reservations.Create
 {
-    internal sealed class CreateReservationCommandHandler(IApplicationDbContext context) : ICommandHandler<CreateReservationCommand, Reservation>
+    internal sealed class CreateReservationCommandHandler(IApplicationDbContext context, IMapper mapper) : ICommandHandler<CreateReservationCommand, GetReservationResponse>
     {
-        public async Task<Result<Reservation>> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
+        public async Task<Result<GetReservationResponse>> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
         {
             bool userExists = await context.Users
                 .AnyAsync(u => u.Id == request.UserId, cancellationToken);
 
-            if (!userExists) return Result.Failure<Reservation>(new Error(
+            if (!userExists) return Result.Failure<GetReservationResponse>(new Error(
                 "Reservation.NoUser", $"User with ID {request.UserId} does not exist.", ErrorType.NotFound));
 
             Session? sessionExists = await context.Sessions
                 .FindAsync(request.SessionId, cancellationToken);
 
-            if (sessionExists is null) return Result.Failure<Reservation>(new Error(
+            if (sessionExists is null) return Result.Failure<GetReservationResponse>(new Error(
                 "Reservation.NoSession", $"Session with ID {request.SessionId} does not exist.", ErrorType.NotFound));
 
             var reservation = new Reservation
@@ -37,7 +39,7 @@ namespace Application.Scheduling.Reservations.Create
 
             sessionExists.CurrentCapacity += 1;
             await context.SaveChangesAsync(cancellationToken);
-            return Result.Success(reservation);
+            return Result.Success(mapper.Map<GetReservationResponse>(reservation));
         }
     }
 }

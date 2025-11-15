@@ -1,22 +1,24 @@
 ﻿using Application.Abstractions.Interfaces;
 using Application.Abstractions.Messaging;
+using Application.Locations.Cities.Get;
 using Domain.Locations;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Locations.Cities.Create
 {
-    internal sealed class CreateAddressCommandHandler(IApplicationDbContext context) : ICommandHandler<CreateCityCommand, Guid>
+    internal sealed class CreateAddressCommandHandler(IApplicationDbContext context, IMapper mapper) : ICommandHandler<CreateCityCommand, GetCityResponse>
     {
-        public async Task<Result<Guid>> Handle(CreateCityCommand request, CancellationToken cancellationToken)
+        public async Task<Result<GetCityResponse>> Handle(CreateCityCommand request, CancellationToken cancellationToken)
         {
             bool existing = await context.Cities.AnyAsync(c => c.Name == request.Name, cancellationToken);
 
-            if (existing) return Result.Failure<Guid>
+            if (existing) return Result.Failure<GetCityResponse>
                            (new Error("City.NameTaken", $"The city name: '{request.Name} is taken'", ErrorType.Conflict));
 
             bool existingCountry = await context.Countries.AnyAsync(c => c.Id == request.CountryId, cancellationToken);
 
-            if (existingCountry == false) return Result.Failure<Guid>
+            if (existingCountry == false) return Result.Failure<GetCityResponse>
                     (new Error("Country.NotFound", $"The country with the id: '{request.CountryId}' was not found.", ErrorType.NotFound));
 
             var city = new City
@@ -30,7 +32,7 @@ namespace Application.Locations.Cities.Create
 
             await context.SaveChangesAsync(cancellationToken);
 
-            return city.Id;
+            return Result.Success(mapper.Map<GetCityResponse>(city));
         }
     }
 }

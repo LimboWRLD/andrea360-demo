@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Messaging;
+using Application.Scheduling.Reservations.Get;
 using Domain.Scheduling;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace Application.Scheduling.Reservations.Create
 {
-    public class CreateReservationCommand : ICommand<Reservation>
+    public class CreateReservationCommand : ICommand<GetReservationResponse>
     {
         public Guid SessionId { get; set; }
 

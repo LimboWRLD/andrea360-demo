@@ -1,6 +1,8 @@
 ﻿using Application.Abstractions.Interfaces;
 using Application.Abstractions.Messaging;
+using Application.Scheduling.Sessions.Get;
 using Domain.Scheduling;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,20 +12,20 @@ using System.Threading.Tasks;
 
 namespace Application.Scheduling.Sessions.Create
 {
-    internal sealed class CreateSessionCommandHandler(IApplicationDbContext context) : ICommandHandler<CreateSessionCommand, Session>
+    internal sealed class CreateSessionCommandHandler(IApplicationDbContext context, IMapper mapper) : ICommandHandler<CreateSessionCommand, GetSessionResponse>
     {
-        public async Task<Result<Session>> Handle(CreateSessionCommand request, CancellationToken cancellationToken)
+        public async Task<Result<GetSessionResponse>> Handle(CreateSessionCommand request, CancellationToken cancellationToken)
         {
             bool locationExists = await context.Locations
                 .AnyAsync(l => l.Id == request.LocationId, cancellationToken);
 
-            if (!locationExists) return Result.Failure<Session>(
+            if (!locationExists) return Result.Failure<GetSessionResponse>(
                 new Error("Session.InvalidLocation", $"The location with id '{request.LocationId}' does not exist.", ErrorType.NotFound));
 
             bool serviceExists = await context.Services
                 .AnyAsync(s => s.Id == request.ServiceId, cancellationToken);
 
-            if (!serviceExists) return Result.Failure<Session>(
+            if (!serviceExists) return Result.Failure<GetSessionResponse>(
                 new Error("Session.InvalidService", $"The service with id '{request.ServiceId}' does not exist.", ErrorType.NotFound));
 
             var session = new Session
@@ -38,7 +40,7 @@ namespace Application.Scheduling.Sessions.Create
             context.Sessions.Add(session);
             await context.SaveChangesAsync(cancellationToken);
 
-            return Result.Success(session);
+            return Result.Success(mapper.Map<GetSessionResponse>(session));
         }
     }
 }

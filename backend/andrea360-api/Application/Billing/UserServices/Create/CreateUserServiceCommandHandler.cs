@@ -1,6 +1,8 @@
 ﻿using Application.Abstractions.Interfaces;
 using Application.Abstractions.Messaging;
+using Application.Billing.UserServices.Get;
 using Domain.Billing;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,16 +12,16 @@ using System.Threading.Tasks;
 
 namespace Application.Billing.UserServices.Create
 {
-    internal sealed class CreateUserServiceCommandHandler(IApplicationDbContext context) : ICommandHandler<CreateUserServiceCommand, UserService>
+    internal sealed class CreateUserServiceCommandHandler(IApplicationDbContext context, IMapper mapper) : ICommandHandler<CreateUserServiceCommand, GetUserServiceResponse>
     {
-        public async Task<Result<UserService>> Handle(CreateUserServiceCommand request, CancellationToken cancellationToken)
+        public async Task<Result<GetUserServiceResponse>> Handle(CreateUserServiceCommand request, CancellationToken cancellationToken)
         {
             bool userExists = await context.Users
                 .AnyAsync(u => u.Id == request.UserId, cancellationToken);
 
             if (!userExists)
             {
-                return Result.Failure<UserService>(new Error(
+                return Result.Failure<GetUserServiceResponse>(new Error(
                     "UserService.NoUser",
                     $"User with ID {request.UserId} does not exist.",
                     ErrorType.NotFound));
@@ -30,7 +32,7 @@ namespace Application.Billing.UserServices.Create
 
             if (!serviceExists)
             {
-                return Result.Failure<UserService>(new Error(
+                return Result.Failure<GetUserServiceResponse>(new Error(
                     "UserService.NoService",
                     $"Service with ID {request.ServiceId} does not exist.",
                     ErrorType.NotFound));
@@ -52,14 +54,14 @@ namespace Application.Billing.UserServices.Create
 
                 await context.SaveChangesAsync(cancellationToken);
 
-                return Result.Success(newUserService);
+                return Result.Success(mapper.Map<GetUserServiceResponse>(newUserService));
             }
 
             existingUserService.RemainingSessions += 1;
 
             await context.SaveChangesAsync(cancellationToken);
 
-            return Result.Success(existingUserService);
+            return Result.Success(mapper.Map<GetUserServiceResponse>(existingUserService));
         }
     }
 }

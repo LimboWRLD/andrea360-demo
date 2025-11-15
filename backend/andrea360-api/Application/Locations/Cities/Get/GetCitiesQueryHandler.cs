@@ -1,17 +1,18 @@
 ﻿using Application.Abstractions.Interfaces;
 using Application.Abstractions.Messaging;
 using Domain.Locations;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Locations.Cities.Get
 {
-    internal sealed class GetCitiesQueryHandler(IApplicationDbContext context) : IQueryHandler<GetCitiesQuery, List<City>>
+    internal sealed class GetCitiesQueryHandler(IApplicationDbContext context, IMapper mapper) : IQueryHandler<GetCitiesQuery, List<GetCityResponse>>
     {
-        public async Task<Result<List<City>>> Handle(GetCitiesQuery request, CancellationToken cancellationToken)
+        public async Task<Result<List<GetCityResponse>>> Handle(GetCitiesQuery request, CancellationToken cancellationToken)
         {
             List<City> result = await context.Cities.ToListAsync(cancellationToken);
 
-            return result;
+            return Result.Success(mapper.Map<List<GetCityResponse>>(result));
         }
     }
 }

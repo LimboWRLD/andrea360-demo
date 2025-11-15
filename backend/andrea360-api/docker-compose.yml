@@ -1,5 +1,5 @@
 services:
-  webapi:
+  restapi:
     image: ${DOCKER_REGISTRY-}restapi
     build:
       context: .
@@ -17,7 +17,7 @@ services:
       - postgres
       - keycloak
     networks:
-      - food-order-network
+      - andrea360-network
     ports:
       - "5000:5000"
 

@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Messaging;
+using Application.Users.Get;
 using Domain.Users;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace Application.Users.Create
 {
-    public class CreateUserCommand : ICommand<User>
+    public class CreateUserCommand : ICommand<UserResponse>
     {
         public string FirstName { get; set; }
 

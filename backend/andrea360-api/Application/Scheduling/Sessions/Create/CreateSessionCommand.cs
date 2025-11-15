@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Messaging;
+using Application.Scheduling.Sessions.Get;
 using Domain.Scheduling;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Scheduling.Sessions.Create
 {
-    public class CreateSessionCommand : ICommand<Session>
+    public class CreateSessionCommand : ICommand<GetSessionResponse>
     {
         public DateTime StartTime { get; set; }
 
