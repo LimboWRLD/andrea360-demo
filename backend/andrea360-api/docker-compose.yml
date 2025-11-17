@@ -70,6 +70,17 @@ services:
       - keycloak_postgres
     networks:
       - andrea360-network
+ 
+  frontend:
+    container_name: andrea_frontend
+    build: 
+        context: ../../frontend/andrea360-web
+        dockerfile: Dockerfile
+    ports:
+      - "4200:80"         
+    restart: always
+    networks:
+      - andrea360-network
 
 volumes:
   pg_data:

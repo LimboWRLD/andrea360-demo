@@ -1,0 +1,10 @@
+{
+  "HEADER": {
+    "HOME": "Početna",
+    "ADMIN": "Administracija",
+    "LOGOUT": "Odjavi se"
+  },
+  "COMMON": {
+    "SAVE": "Sačuvaj"
+  }
+}
