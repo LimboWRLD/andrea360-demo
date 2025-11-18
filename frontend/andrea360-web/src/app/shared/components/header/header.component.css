@@ -1,0 +1,10 @@
+header {
+  min-height: 64px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+header {
+  position: relative;
+  z-index: 50;
+}

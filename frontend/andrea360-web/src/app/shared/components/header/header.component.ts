@@ -1,26 +1,33 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
-  imports: [TranslatePipe, CommonModule],
+  imports: [TranslateModule, CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
 export class HeaderComponent {
+  @Output() toggleSidebar = new EventEmitter<void>();
+
+  @Input() isSidebarOpen: boolean = true;
+
   open = false;
   currentLang: string;
 
-  @Output() sidebarToggle = new EventEmitter<void>(); // Za prikaz sidebar-a
 
-  constructor(private translate: TranslateService) {
+  constructor(public translate: TranslateService) {
     this.currentLang = this.translate.getCurrentLang() ?? 'sr';
   }
 
   switchLang(lang: string) {
-    this.translate.use(lang);
-    this.currentLang = lang;
+    this.translate.use(lang).subscribe(() => {
+      this.currentLang = lang;
+    });
   }
 
+  onToggleClick(): void {
+    this.toggleSidebar.emit();
+  }
 }

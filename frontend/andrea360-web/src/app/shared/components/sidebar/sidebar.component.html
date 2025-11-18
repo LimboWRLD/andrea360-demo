@@ -1,0 +1,32 @@
+<aside
+  class="sidebar h-screen bg-gray-800 text-gray-300 overflow-hidden"
+  [class.collapsed]="!isOpen"
+  [style.width.px]="isOpen ? 256 : 80"
+>
+  <nav class="h-full pt-4 overflow-y-auto">
+    <ul class="flex flex-col space-y-2">
+      <ng-container>
+        <li *ngFor="let item of navLinks">
+          <a
+            *kaHasRoles="item.roles; checkRealm: true"
+            [routerLink]="item.route"
+            routerLinkActive="bg-cyan-600 text-white"
+            class="flex items-center h-12 rounded hover:bg-gray-700 hover:text-white transition-colors duration-200 px-3"
+            [title]="!isOpen ?(translate.stream(item.label) | async) : null"
+          >
+            <div
+              class="icon w-10 flex items-center justify-center shrink-0"
+              [innerHTML]="item.iconPath"
+            ></div>
+
+            <div class="label ml-3 overflow-hidden">
+              <span class="text-sm whitespace-nowrap">{{
+                (translate.stream(item.label) | async)
+              }}</span>
+            </div>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </nav>
+</aside>
