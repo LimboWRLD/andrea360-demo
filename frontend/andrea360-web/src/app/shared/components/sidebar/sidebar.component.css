@@ -1,0 +1,29 @@
+.sidebar {
+	transition: width 300ms ease;
+}
+
+.sidebar .label {
+	/* allow label to collapse smoothly without causing reflow */
+	max-width: 100%;
+	opacity: 1;
+	transition: max-width 300ms ease, opacity 200ms ease;
+}
+
+.sidebar.collapsed .label {
+	max-width: 0;
+	opacity: 0;
+}
+
+.sidebar .icon {
+	flex-shrink: 0;
+}
+
+.sidebar a {
+	display: flex;
+	align-items: center;
+}
+
+.sidebar .label span {
+	display: inline-block;
+}
+
