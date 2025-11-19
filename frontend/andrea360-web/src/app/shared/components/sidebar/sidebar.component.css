@@ -1,29 +1,46 @@
-.sidebar {
-	transition: width 300ms ease;
+/* Sidebar container styling */
+div {
+  display: flex;
+  flex-direction: column;
 }
 
-.sidebar .label {
-	/* allow label to collapse smoothly without causing reflow */
-	max-width: 100%;
-	opacity: 1;
-	transition: max-width 300ms ease, opacity 200ms ease;
+/* Menu items */
+.menu {
+  width: 100%;
 }
 
-.sidebar.collapsed .label {
-	max-width: 0;
-	opacity: 0;
+.menu li a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.sidebar .icon {
-	flex-shrink: 0;
+.menu li a .icon {
+  flex-shrink: 0;
+  min-width: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.sidebar a {
-	display: flex;
-	align-items: center;
+/* Ensure icons always visible */
+.icon svg {
+  width: 100%;
+  height: 100%;
 }
 
-.sidebar .label span {
-	display: inline-block;
+/* Tooltip styling when sidebar is closed */
+.tooltip {
+  position: relative;
 }
+
+/* Smooth width transitions */
+.transition-all {
+  transition: width 200ms ease, padding 200ms ease;
+}
+
+
 

@@ -1,0 +1,41 @@
+<div class="overflow-x-auto">
+  <table class="table table-zebra w-full bg-base-300">
+    <thead>
+      <tr>
+        <th *ngFor="let column of columns">{{ column.label }}</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="loading">
+        <td [attr.colspan]="columns.length + 1" class="text-center">
+          <span class="loading loading-spinner loading-md"></span>
+        </td>
+      </tr>
+      <tr *ngIf="!loading && data.length === 0">
+        <td [attr.colspan]="columns.length + 1" class="text-center bg-base-100">
+          No data available
+        </td>
+      </tr>
+      <tr *ngFor="let row of data" class="hover">
+        <td *ngFor="let column of columns">{{ getValue(row, column) }}</td>
+        <td>
+          <div class="flex gap-2">
+            <button 
+              class="btn btn-sm btn-primary" 
+              (click)="editRow(row)"
+              aria-label="Edit">
+              Edit
+            </button>
+            <button 
+              class="btn btn-sm btn-error" 
+              (click)="deleteRow(row)"
+              aria-label="Delete">
+              Delete
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

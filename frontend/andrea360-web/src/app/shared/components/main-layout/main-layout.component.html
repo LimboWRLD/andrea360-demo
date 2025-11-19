@@ -1,24 +1,21 @@
-<div class="flex flex-col h-screen bg-gray-100">
+<div class="flex flex-col h-screen bg-base-100">
   <app-header (toggleSidebar)="toggleSidebar()" [isSidebarOpen]="sidebarOpen"></app-header>
-<h1 *kaHasRoles="['offline_access']"> ALOOOOOOOO</h1>
-  <div class="drawer drawer-mobile flex-1">
-    <input
-      id="sidebar-drawer"
-      type="checkbox"
-      class="drawer-toggle"
-      [checked]="sidebarOpen"
-      (change)="onDrawerChange($event)"
-    />
-
-    <div class="drawer-content flex flex-col">
-      <main class="p-6 flex-1 overflow-y-auto">
-        <router-outlet></router-outlet>
-      </main>
-    </div>
-
-    <div class="drawer-side">
-      <label for="sidebar-drawer" class="drawer-overlay"></label>
+  <div class="flex flex-1 overflow-hidden">
+    <div class="fixed top-16 left-0 h-[calc(100vh-4rem)] bg-base-200 z-30 shadow-lg">
       <app-sidebar [isOpen]="sidebarOpen"></app-sidebar>
     </div>
+
+    <div
+      *ngIf="sidebarOpen && (isSmallScreen$ | async)"
+      class="fixed inset-0 bg-opacity-50 z-20 md:hidden"
+      (click)="toggleSidebar()"
+    ></div>
+
+    <main [ngClass]="{
+  'ml-14': !sidebarOpen,
+  'ml-64': sidebarOpen
+}" class="flex-1 p-6 overflow-y-auto transition-all duration-200 bg-base-100 " >
+      <router-outlet></router-outlet>
+    </main>
   </div>
 </div>

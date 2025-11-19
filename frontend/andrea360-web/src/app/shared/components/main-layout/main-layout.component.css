@@ -1,0 +1,16 @@
+/* Header positioning */
+app-header {
+  z-index: 50;
+  position: relative;
+}
+
+/* Sidebar fixed positioning */
+.fixed {
+  top: 4rem; /* Adjust to match header height */
+}
+
+/* Content margin for open sidebar */
+main {
+  transition: margin-left 200ms ease;
+}
+
