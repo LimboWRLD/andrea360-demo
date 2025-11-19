@@ -13,8 +13,6 @@ namespace Infrastructure.Configurations.Scheduling
     {
         public void Configure(EntityTypeBuilder<Session> builder)
         {
-            builder.ToTable("Sessions");
-
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.StartTime)
@@ -35,7 +33,7 @@ namespace Infrastructure.Configurations.Scheduling
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(x => x.Service)
-                .WithMany()
+                .WithMany(s => s.Sessions)
                 .HasForeignKey(x => x.ServiceId)
                 .OnDelete(DeleteBehavior.Cascade);
 

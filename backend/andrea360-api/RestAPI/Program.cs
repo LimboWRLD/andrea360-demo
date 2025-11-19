@@ -37,6 +37,10 @@ Console.WriteLine($"----------------------");
 
 var app = builder.Build();
 
+app.UseCors("AllowLocalhost4200");
+
+await app.UseInfrastructure();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -47,7 +51,6 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseHttpsRedirection();
 
 app.UseFastEndpoints(config =>
 {

@@ -13,8 +13,6 @@ namespace Infrastructure.Configurations.Users
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("Users");
-
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.FirstName)

@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using Domain.Scheduling;
 
 namespace Domain.Locations
 {
@@ -9,5 +10,7 @@ namespace Domain.Locations
         public Guid AddressId { get; set; }
 
         public Address Address { get; set; }
+
+        public ICollection<Session> Sessions { get; set; } = new List<Session>();
     }
 }

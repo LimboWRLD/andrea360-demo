@@ -8,8 +8,6 @@ namespace Infrastructure.Configurations.Locations
     {
         public void Configure(EntityTypeBuilder<Country> builder)
         {
-            builder.ToTable("Countries");
-
             builder.HasKey(c => c.Id);
 
             builder.HasIndex(c => c.Name).IsUnique();

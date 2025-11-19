@@ -1,4 +1,5 @@
-﻿using Domain.Common;
+﻿using Domain.Catalog;
+using Domain.Common;
 
 namespace Domain.Billing
 {
@@ -6,6 +7,8 @@ namespace Domain.Billing
     {
         public Guid UserId { get; set; }
         public Guid ServiceId { get; set; }
+
+        public Service Service { get; set; }
         public decimal Amount { get; set; }
         public DateTime TransactionDate { get; set; }
 

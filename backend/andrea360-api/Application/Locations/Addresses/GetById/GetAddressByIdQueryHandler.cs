@@ -3,6 +3,7 @@ using Application.Abstractions.Messaging;
 using Application.Locations.Addresses.Get;
 using Domain.Locations;
 using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Locations.Addresses.GetById
 {
@@ -10,7 +11,7 @@ namespace Application.Locations.Addresses.GetById
     {
         public async Task<Result<GetAddressResponse>> Handle(GetAddressByIdQuery request, CancellationToken cancellationToken)
         {
-            Address? address = await context.Addresses.FindAsync(request.AddressId, cancellationToken);
+            Address? address = await context.Addresses.Include(c => c.City).ThenInclude(c => c.Country).Where(l => !l.IsDeleted).FirstOrDefaultAsync(a => a.Id == request.AddressId, cancellationToken);
 
             if (address is null)
                 return Result.Failure<GetAddressResponse>

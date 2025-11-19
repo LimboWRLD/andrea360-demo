@@ -12,7 +12,7 @@ namespace Application.Billing.Transactions.GetByUserId
         public async Task<Result<List<GetTransactionResponse>>> Handle(GetTransactionsByUserIdQuery request, CancellationToken cancellationToken)
         {
             List<Transaction> result = await context.Transactions
-                .Where(t => t.UserId == request.UserId)
+                .Where(t => t.UserId == request.UserId && !t.IsDeleted)
                 .ToListAsync(cancellationToken);
 
             return Result.Success(mapper.Map<List<GetTransactionResponse>>(result));
