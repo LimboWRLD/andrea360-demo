@@ -3,6 +3,7 @@ using Application.Abstractions.Messaging;
 using Application.Scheduling.Sessions.Get;
 using Domain.Scheduling;
 using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Application.Scheduling.Sessions.GetById
     {
         public async Task<Result<GetSessionResponse>> Handle(GetSessionByIdQuery request, CancellationToken cancellationToken)
         {
-            Session? session = await context.Sessions.FindAsync(request.SessionId, cancellationToken);
+            Session? session = await context.Sessions.Where(l => !l.IsDeleted).FirstOrDefaultAsync(s => s.Id == request.SessionId, cancellationToken);
             if (session is null)
                 return Result.Failure<GetSessionResponse>
                 (new Error("Session.NotFound", $"The session with the Id='{request.SessionId}' was not found", ErrorType.NotFound));

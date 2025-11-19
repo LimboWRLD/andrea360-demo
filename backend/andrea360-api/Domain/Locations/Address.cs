@@ -11,5 +11,7 @@ namespace Domain.Locations
         public Guid CityId { get; set; }
 
         public City City { get; set; }
+
+        public ICollection<Location> Locations { get; set; } = new List<Location>();
     }
 }

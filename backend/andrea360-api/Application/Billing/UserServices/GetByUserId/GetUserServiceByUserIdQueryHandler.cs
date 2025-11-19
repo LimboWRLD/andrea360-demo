@@ -11,7 +11,7 @@ namespace Application.Billing.UserServices.GetByUserId
         public async Task<Result<List<GetUserServiceResponse>>> Handle(GetUserServiceByUserIdQuery request, CancellationToken cancellationToken)
         {
             List<UserService> result = context.UserServices
-                .Where(us => us.UserId == request.UserId)
+                .Where(us => us.UserId == request.UserId && !us.IsDeleted)
                 .ToList();
             return Result.Success<List<GetUserServiceResponse>>(mapper.Map<List<GetUserServiceResponse>>(result));
         }
