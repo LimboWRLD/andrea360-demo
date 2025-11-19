@@ -1,0 +1,67 @@
+<div class="container card mx-auto bg-base-100">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">Location Management</h1>
+    <button class="btn btn-primary" (click)="openForm()">
+      +
+      {{
+        "LOCATION.BUTTONS.ADD"
+          | translate
+            : {
+                entity: "LOCATION.ENTITY." + activeTab.toUpperCase() | translate
+              }
+      }}
+    </button>
+  </div>
+
+  <div class="tabs tabs-boxed mb-6 bg-base-100">
+    <a
+      class="tab"
+      [class.tab-active]="activeTab === 'locations'"
+      (click)="setTab('locations')"
+    >
+      {{ "LOCATION.TABS.LOCATIONS" | translate }}
+    </a>
+    <a
+      class="tab"
+      [class.tab-active]="activeTab === 'addresses'"
+      (click)="setTab('addresses')"
+    >
+      {{ "LOCATION.TABS.ADDRESSES" | translate }}
+    </a>
+    <a
+      class="tab"
+      [class.tab-active]="activeTab === 'cities'"
+      (click)="setTab('cities')"
+    >
+      {{ "LOCATION.TABS.CITIES" | translate }}
+    </a>
+    <a
+      class="tab"
+      [class.tab-active]="activeTab === 'countries'"
+      (click)="setTab('countries')"
+    >
+      {{ "LOCATION.TABS.COUNTRIES" | translate }}
+    </a>
+  </div>
+
+  <div *ngIf="!showForm" class="bg-white rounded-lg shadow">
+    <app-data-table
+      [columns]="currentColumns"
+      [data]="currentData"
+      (onEdit)="onEdit($event)"
+      (onDelete)="onDelete($event)"
+    >
+    </app-data-table>
+  </div>
+
+  <div *ngIf="showForm" class="max-w-2xl mx-auto">
+    <app-entity-form
+      [fields]="currentFields"
+      [data]="selectedEntity"
+      [title]="formTitle"
+      (onSubmit)="onFormSubmit($event)"
+      (onCancel)="closeForm()"
+    >
+    </app-entity-form>
+  </div>
+</div>

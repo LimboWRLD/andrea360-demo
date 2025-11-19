@@ -63,4 +63,9 @@ export class SidebarComponent {
       },
     ];
   }
+
+  onDrawerToggle(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.isOpen = !!input.checked;
+  }
 }

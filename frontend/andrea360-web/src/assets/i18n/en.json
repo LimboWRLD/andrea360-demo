@@ -9,13 +9,64 @@
     "LOCATIONS": "Locations",
     "EMPLOYEES": "Employees",
     "ADMIN": "Administration",
-    "EMPLOYEE":"Employee",
+    "EMPLOYEE": "Employee",
     "MEMBERS": "Members",
     "SERVICES": "Services",
     "SCHEDULE": "Schedule",
     "SHOP": "Shop",
     "BOOKING": "Booking",
     "PROFILE": "Profile"
+  },
+
+  "LOCATION": {
+    "TITLE": "Location Management",
+
+    "TABS": {
+      "LOCATIONS": "Locations",
+      "ADDRESSES": "Addresses",
+      "CITIES": "Cities",
+      "COUNTRIES": "Countries"
+    },
+
+    "BUTTONS": {
+      "ADD": "Add {{entity}}",
+      "CREATE": "Create",
+      "UPDATE": "Update",
+      "CANCEL": "Cancel"
+    },
+
+    "TABLE": {
+      "ACTIONS": "Actions",
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "NO_DATA": "No data available"
+    },
+
+    "ENTITY": {
+      "LOCATIONS": "Location",
+      "ADDRESSES": "Address",
+      "CITIES": "City",
+      "COUNTRIES": "Country"
+    },
+
+    "FIELDS": {
+      "NAME": "Name",
+      "LOCATION_NAME": "Location Name",
+      "STREET": "Street",
+      "NUMBER": "Number",
+      "CITY": "City",
+      "COUNTRY": "Country",
+
+      "PLACEHOLDERS": {
+        "LOCATION_NAME": "Enter location name",
+        "STREET": "Enter street name",
+        "NUMBER": "Enter number",
+        "CITY": "Select city",
+        "COUNTRY": "Select country"
+      },
+
+      "REQUIRED": "{{field}} is required"
+    }
   },
   "COMMON": {
     "SAVE": "Save"

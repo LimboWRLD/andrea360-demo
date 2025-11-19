@@ -1,32 +1,23 @@
-<aside
-  class="sidebar h-screen bg-gray-800 text-gray-300 overflow-hidden"
-  [class.collapsed]="!isOpen"
-  [style.width.px]="isOpen ? 256 : 80"
->
-  <nav class="h-full pt-4 overflow-y-auto">
-    <ul class="flex flex-col space-y-2">
-      <ng-container>
-        <li *ngFor="let item of navLinks">
-          <a
-            *kaHasRoles="item.roles; checkRealm: true"
-            [routerLink]="item.route"
-            routerLinkActive="bg-cyan-600 text-white"
-            class="flex items-center h-12 rounded hover:bg-gray-700 hover:text-white transition-colors duration-200 px-3"
-            [title]="!isOpen ?(translate.stream(item.label) | async) : null"
-          >
-            <div
-              class="icon w-10 flex items-center justify-center shrink-0"
-              [innerHTML]="item.iconPath"
-            ></div>
-
-            <div class="label ml-3 overflow-hidden">
-              <span class="text-sm whitespace-nowrap">{{
-                (translate.stream(item.label) | async)
-              }}</span>
-            </div>
-          </a>
-        </li>
-      </ng-container>
-    </ul>
-  </nav>
-</aside>
+<div [ngClass]="{
+  'w-14': !isOpen,
+  'w-64': isOpen
+}" class="flex min-h-full flex-col items-start bg-base-200 transition-all duration-200 overflow-hidden menu text-base-content">
+  <ul class="menu w-full grow pt-0">
+    <ng-container>
+      <li *ngFor="let item of navLinks">
+        <a
+          *kaHasRoles="item.roles; checkRealm: true"
+          [routerLink]="item.route"
+          routerLinkActive="bg-cyan-600 text-white"
+          [ngClass]="{'tooltip tooltip-right': !isOpen}"
+          [attr.data-tip]="(translate.stream(item.label) | async)"
+          [attr.aria-label]="(translate.stream(item.label) | async)"
+          class="px-2 py-3 flex items-center gap-3"
+        >
+          <div class="icon w-6 flex items-center justify-center shrink-0" [innerHTML]="item.iconPath"></div>
+          <span [hidden]="!isOpen" class="whitespace-nowrap">{{ (translate.stream(item.label) | async) }}</span>
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+</div>

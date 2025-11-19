@@ -1,26 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { HeaderComponent } from "../header/header.component";
 import { RouterModule } from "@angular/router";
-import { HasRolesDirective } from 'keycloak-angular';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [SidebarComponent, HeaderComponent, RouterModule, HasRolesDirective],
+  imports: [SidebarComponent, HeaderComponent, RouterModule, CommonModule],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.css'
 })
-export class MainLayoutComponent {
-  public sidebarOpen: boolean = true; 
+export class MainLayoutComponent implements OnInit {
+  public sidebarOpen: boolean = true;
+  public isSmallScreen$!: Observable<boolean>;
+
+  ngOnInit(): void {
+    this.isSmallScreen$ = new Observable(observer => {
+      const checkScreen = () => {
+        observer.next(window.innerWidth < 1024);
+      };
+      checkScreen();
+      window.addEventListener('resize', checkScreen);
+      return () => window.removeEventListener('resize', checkScreen);
+    });
+  }
 
   toggleSidebar(): void {
     this.sidebarOpen = !this.sidebarOpen;
-  }
-
-  // Keep checkbox-driven drawer in sync when it changes directly
-  onDrawerChange(event: Event): void {
-    const input = event.target as HTMLInputElement | null;
-    if (!input) return;
-    this.sidebarOpen = input.checked;
   }
 }
