@@ -17,12 +17,14 @@ namespace Domain.Users
 
         public string? StripeCustomerId { get; set; }
 
-        public string KeycloakId { get; set; }  
+        public string KeycloakId { get; set; }
 
-        public IEnumerable<UserService> UserSessions { get; set; } = Enumerable.Empty<UserService>();
+        public List<string> Roles { get; set; } = new List<string>();
 
-        public IEnumerable<Transaction> Transactions { get; set; } = Enumerable.Empty<Transaction>();
+        public ICollection<UserService> UserSessions { get; set; } = new List<UserService>();
 
-        public IEnumerable<Reservation> Reservations { get; set; }  = Enumerable.Empty<Reservation>();
+        public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+
+        public ICollection<Reservation> Reservations { get; set; }  = new List<Reservation>();
     }
 }

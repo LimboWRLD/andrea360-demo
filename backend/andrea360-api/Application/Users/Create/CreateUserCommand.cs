@@ -22,6 +22,6 @@ namespace Application.Users.Create
 
         public string? StripeCustomerId { get; set; }
 
-        public string KeycloakId { get; set; }
+        public List<string> Roles { get; set; }
     }
 }
