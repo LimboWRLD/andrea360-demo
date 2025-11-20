@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface TableColumn {
   key: string;
@@ -9,7 +10,7 @@ export interface TableColumn {
 
 @Component({
   selector: 'app-data-table',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.css'
 })

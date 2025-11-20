@@ -43,6 +43,24 @@ namespace Application.Billing.Transactions.Create
                     StripeTransactionId = request.StripeTransactionId
                 };
 
+                var userService = await context.UserServices
+                    .FirstOrDefaultAsync(us => us.UserId == request.UserId && us.ServiceId == request.ServiceId, cancellationToken);
+
+                if(userService is null)
+                {
+                    userService = new UserService
+                    {
+                        UserId = request.UserId,
+                        ServiceId = request.ServiceId,
+                        RemainingSessions = 1,
+                    };
+                    context.UserServices.Add(userService);
+                }
+                else
+                {
+                    userService.RemainingSessions += 1;
+                }
+
                 context.Transactions.Add(transactionEntity);
 
                 await context.SaveChangesAsync(cancellationToken);
