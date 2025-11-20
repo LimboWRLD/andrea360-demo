@@ -1,19 +1,23 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface FormField {
   name: string;
   label: string;
-  type: 'text' | 'select' | 'number';
+  type: 'text' | 'select' | 'number' | 'multiselect' | 'switch';
   required?: boolean;
   options?: { value: any; label: string }[];
   placeholder?: string;
+  validators?: string[];
+  defaultValue?: any;
+  suffix?: string;
 }
 
 @Component({
   selector: 'app-entity-form',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, TranslatePipe],
   templateUrl: './entity-form.component.html',
   styleUrl: './entity-form.component.css'
 })
@@ -45,8 +49,29 @@ export class EntityFormComponent implements OnInit, OnChanges {
     const group: any = {};
     
     this.fields.forEach(field => {
-      const validators = field.required ? [Validators.required] : [];
-      const value = this.data?.[field.name] ?? '';
+      const validators: any[] = [];
+      
+      if (field.required) {
+        validators.push(Validators.required);
+      }
+      
+      if (field.validators) {
+        field.validators.forEach(validatorName => {
+          switch (validatorName.toLowerCase()) {
+            case 'email':
+              validators.push(Validators.email);
+              break;
+            case 'minlength':
+              validators.push(Validators.minLength(3));
+              break;
+            case 'maxlength':
+              validators.push(Validators.maxLength(100));
+              break;
+          }
+        });
+      }
+      
+      const value = this.data?.[field.name] ?? field.defaultValue ?? '';
       group[field.name] = [value, validators];
     });
 

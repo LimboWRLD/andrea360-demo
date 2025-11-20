@@ -30,10 +30,10 @@ namespace Application
             {
                 return new KeycloakClient(
                 configuration["Keycloak:Url"]!,
-                configuration["Keycloak:AdminUserName"]!,
-                configuration["Keycloak:AdminPassword"]!,
+                configuration["Keycloak:AuthClientSecret"]!,
                 new KeycloakOptions(
-                    adminClientId: configuration["Keycloak:AdminClientId"]!
+                    adminClientId: configuration["Keycloak:AuthClientId"]!,
+                    authenticationRealm: configuration["Keycloak:Realm"]!
                 )
                     );
             }
