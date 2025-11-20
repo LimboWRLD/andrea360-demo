@@ -10,6 +10,6 @@ namespace Domain.Billing
 
         public Service Service { get; set; }
 
-        public int RemainingSessions { get; set; }
+        public int RemainingSessions { get; set; } = 1;
     }
 }

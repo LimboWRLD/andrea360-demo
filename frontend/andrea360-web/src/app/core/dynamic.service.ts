@@ -46,4 +46,8 @@ export class DynamicService {
   putByPath<R>(path: string, data: any = null): Observable<R> {
     return this.http.put<R>(`${this.baseUrl}/${path}`, data);
   }
+
+  createPaymentIntent(serviceId: string, userId: string): Observable<string> {
+    return this.http.post<string>(`${this.baseUrl}/transactions/create-intent`, { serviceId, userId });
+  }
 }

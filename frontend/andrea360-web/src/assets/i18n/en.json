@@ -17,38 +17,32 @@
     "BOOKING": "Booking",
     "PROFILE": "Profile"
   },
-
   "LOCATION": {
     "TITLE": "Location Management",
-
     "TABS": {
       "LOCATIONS": "Locations",
       "ADDRESSES": "Addresses",
       "CITIES": "Cities",
       "COUNTRIES": "Countries"
     },
-
     "BUTTONS": {
       "ADD": "Add {{entity}}",
       "CREATE": "Create",
       "UPDATE": "Update",
       "CANCEL": "Cancel"
     },
-
     "TABLE": {
       "ACTIONS": "Actions",
       "EDIT": "Edit",
       "DELETE": "Delete",
       "NO_DATA": "No data available"
     },
-
     "ENTITY": {
       "LOCATIONS": "Location",
       "ADDRESSES": "Address",
       "CITIES": "City",
       "COUNTRIES": "Country"
     },
-
     "FIELDS": {
       "NAME": "Name",
       "LOCATION_NAME": "Location Name",
@@ -56,7 +50,6 @@
       "NUMBER": "Number",
       "CITY": "City",
       "COUNTRY": "Country",
-
       "PLACEHOLDERS": {
         "LOCATION_NAME": "Enter location name",
         "STREET": "Enter street name",
@@ -64,9 +57,149 @@
         "CITY": "Select city",
         "COUNTRY": "Select country"
       },
-
       "REQUIRED": "{{field}} is required"
     }
+  },
+  "EMPLOYEE": {
+    "TITLE": "Employee Management",
+    "TABS": {
+      "EMPLOYEES": "Employees"
+    },
+    "FORM": {
+      "TITLE": "Employee Form"
+    },
+    "BUTTONS": {
+      "ADD": "Add {{entity}}",
+      "CREATE": "Create",
+      "UPDATE": "Update",
+      "CANCEL": "Cancel"
+    },
+    "TABLE": {
+      "ACTIONS": "Actions",
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "NO_DATA": "No data available"
+    },
+    "ENTITY": {
+      "EMPLOYEES": "employee"
+    },
+    "FIELDS": {
+      "FIRST_NAME": "First Name",
+      "LAST_NAME": "Last Name",
+      "EMAIL": "Email",
+      "LOCATION": "Location",
+      "ENABLED": "Enabled",
+      "ROLES": "Roles",
+      "PLACEHOLDERS": {
+        "FIRST_NAME": "Enter first name",
+        "LAST_NAME": "Enter last name",
+        "EMAIL": "Enter email",
+        "LOCATION": "Select location",
+        "ENABLED": "Select status",
+        "ROLES": "Select roles"
+      },
+      "REQUIRED": "{{field}} is required"
+    },
+    "FILTER": {
+      "LOCATION": "Filter by location",
+      "ENABLED": "Filter by status",
+      "ALL": "All"
+    }
+  },
+  "MEMBER": {
+    "TITLE": "Member Management",
+    "TABS": {
+      "MEMBERS": "Members"
+    },
+    "FORM": {
+      "TITLE": "Member Form"
+    },
+    "BUTTONS": {
+      "ADD": "Add {{entity}}",
+      "CREATE": "Create",
+      "UPDATE": "Update",
+      "CANCEL": "Cancel"
+    },
+    "TABLE": {
+      "ACTIONS": "Actions",
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "NO_DATA": "No data available"
+    },
+    "ENTITY": {
+      "MEMBERS": "member"
+    },
+    "FIELDS": {
+      "FIRST_NAME": "First Name",
+      "LAST_NAME": "Last Name",
+      "EMAIL": "Email",
+      "LOCATION": "Location",
+      "ENABLED": "Enabled",
+      "ROLES": "Roles",
+      "PLACEHOLDERS": {
+        "FIRST_NAME": "Enter first name",
+        "LAST_NAME": "Enter last name",
+        "EMAIL": "Enter email",
+        "LOCATION": "Select location",
+        "ENABLED": "Select status",
+        "ROLES": "Select roles"
+      },
+      "REQUIRED": "{{field}} is required"
+    },
+    "FILTER": {
+      "LOCATION": "Filter by location",
+      "ENABLED": "Filter by status",
+      "ALL": "All"
+    }
+  },
+  "SERVICE": {
+    "TITLE": "Service Management",
+    "FORM": {
+      "TITLE": "Service Form"
+    },
+    "BUTTONS": {
+      "ADD": "Add {{entity}}",
+      "CREATE": "Create",
+      "UPDATE": "Update",
+      "CANCEL": "Cancel"
+    },
+    "TABLE": {
+      "ACTIONS": "Actions",
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "NO_DATA": "No data available"
+    },
+    "ENTITY": {
+      "SERVICES": "service"
+    },
+    "FIELDS": {
+      "NAME": "Service Name",
+      "PRICE": "Price",
+      "PLACEHOLDERS": {
+        "NAME": "Enter service name",
+        "PRICE": "Enter price"
+      },
+      "REQUIRED": "{{field}} is required"
+    }
+  },
+  "SHOP": {
+    "TITLE": "Service Shop",
+    "SUBTITLE": "Browse and purchase our services",
+    "PAYMENT_TITLE": "Complete Your Purchase",
+    "BUY_BUTTON": "Buy Now",
+    "NO_SERVICES": "No services available"
+  },
+  "PAYMENT": {
+    "FIELDS": {
+      "NAME": "Full Name",
+      "EMAIL": "Email Address"
+    },
+    "ERRORS": {
+      "NAME_REQUIRED": "Name is required",
+      "EMAIL_INVALID": "Please enter a valid email address"
+    },
+    "PROCESSING": "Processing Payment...",
+    "PAY_BUTTON": "Pay"
   },
   "COMMON": {
     "SAVE": "Save"
