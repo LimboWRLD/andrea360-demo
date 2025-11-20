@@ -13,8 +13,6 @@ namespace Infrastructure.Configurations.Billing
     {
         public void Configure(EntityTypeBuilder<Transaction> builder)
         {
-            builder.ToTable("Transactions");
-
             builder.HasKey(t => t.Id);
 
             builder.Property(t => t.UserId)
@@ -22,6 +20,11 @@ namespace Infrastructure.Configurations.Billing
 
             builder.Property(t => t.ServiceId)
                 .IsRequired();
+
+            builder.HasOne(t => t.Service)
+                .WithMany(s => s.Transactions) 
+                .HasForeignKey(t => t.ServiceId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(t => t.Amount)
                 .HasPrecision(18, 2)   

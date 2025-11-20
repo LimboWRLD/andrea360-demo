@@ -13,8 +13,6 @@ namespace Infrastructure.Configurations.Scheduling
     {
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
-            builder.ToTable("Reservations");
-
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.ReservedAt)
@@ -25,12 +23,12 @@ namespace Infrastructure.Configurations.Scheduling
                 .HasDefaultValue(false);
 
             builder.HasOne(x => x.Session)
-                .WithMany()
+                .WithMany(s => s.Reservations)
                 .HasForeignKey(x => x.SessionId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(x => x.User)
-                .WithMany()
+                .WithMany(u => u.Reservations)
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         }

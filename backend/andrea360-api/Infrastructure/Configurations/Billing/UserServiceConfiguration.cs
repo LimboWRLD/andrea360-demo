@@ -13,8 +13,6 @@ namespace Infrastructure.Configurations.Billing
     {
         public void Configure(EntityTypeBuilder<UserService> builder)
         {
-            builder.ToTable("UserServices");
-
             builder.HasKey(us => us.Id);
 
             builder.Property(us => us.UserId)
@@ -22,6 +20,11 @@ namespace Infrastructure.Configurations.Billing
 
             builder.Property(us => us.ServiceId)
                 .IsRequired();
+
+            builder.HasOne(us => us.Service)
+                .WithMany(s => s.UserServices)
+                .HasForeignKey(us => us.ServiceId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(us => us.RemainingSessions)
                 .IsRequired();

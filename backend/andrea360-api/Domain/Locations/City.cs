@@ -9,5 +9,7 @@ namespace Domain.Locations
         public Guid CountryId { get; set; }
 
         public Country Country { get; set; }
+
+        public ICollection<Address> Addresses { get; set; } = new List<Address>();
     }
 }

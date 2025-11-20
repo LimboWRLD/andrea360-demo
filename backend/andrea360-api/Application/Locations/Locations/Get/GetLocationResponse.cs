@@ -11,7 +11,6 @@ namespace Application.Locations.Locations.Get
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public Guid AddressId { get; set; }
 
         public GetAddressResponse Address { get; set; }
     }

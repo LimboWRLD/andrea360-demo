@@ -8,8 +8,6 @@ namespace Infrastructure.Configurations.Locations
     {
         public void Configure(EntityTypeBuilder<Location> builder)
         {
-            builder.ToTable("Locations");
-
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Name)
@@ -17,7 +15,7 @@ namespace Infrastructure.Configurations.Locations
                 .HasMaxLength(200);
 
             builder.HasOne(x => x.Address)
-                .WithMany()
+                .WithMany(a => a.Locations)
                 .HasForeignKey(x => x.AddressId)
                 .OnDelete(DeleteBehavior.Cascade);
         }

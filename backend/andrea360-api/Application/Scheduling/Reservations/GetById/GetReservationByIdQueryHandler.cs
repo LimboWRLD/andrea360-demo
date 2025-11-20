@@ -3,6 +3,7 @@ using Application.Abstractions.Messaging;
 using Application.Scheduling.Reservations.Get;
 using Domain.Scheduling;
 using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Application.Scheduling.Reservations.GetById
     {
         public async Task<Result<GetReservationResponse>> Handle(GetReservationByIdQuery request, CancellationToken cancellationToken)
         {
-            Reservation? reservation = await context.Reservations.FindAsync(request.ReservationId, cancellationToken);
+            Reservation? reservation = await context.Reservations.Where(l => !l.IsDeleted).FirstOrDefaultAsync(r => r.Id == request.ReservationId, cancellationToken);
             if (reservation is null) return Result.Failure<GetReservationResponse>
                 (new Error("Reservation.NotFound", $"The reservation with the Id='{request.ReservationId}' was not found", ErrorType.NotFound));
             

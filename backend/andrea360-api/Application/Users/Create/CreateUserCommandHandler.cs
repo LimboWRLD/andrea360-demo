@@ -1,11 +1,13 @@
 ﻿using Application.Abstractions.Interfaces;
 using Application.Abstractions.Messaging;
 using Application.Users.Get;
-using Domain.Users;
+using Domain.Users; 
 using Keycloak.Net;
-using Microsoft.Extensions.Configuration;
+using Keycloak.Net.Models.Root;
+using Keycloak.Net.Models.Users; 
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Application.Users.Create
 {
@@ -32,17 +34,7 @@ namespace Application.Users.Create
         {
             bool emailExists = await _context.Users.AnyAsync(u => u.Email == request.Email, cancellationToken);
             if (emailExists)
-                return Result.Failure<UserResponse>(new Error(
-                    "User.EmailExists",
-                    $"A user with the email '{request.Email}' already exists.",
-                    ErrorType.Conflict));
-
-            bool locationExists = await _context.Locations.AnyAsync(l => l.Id == request.LocationId, cancellationToken);
-            if (!locationExists)
-                return Result.Failure<UserResponse>(new Error(
-                    "User.LocationNotFound",
-                    $"The location with Id '{request.LocationId}' was not found.",
-                    ErrorType.NotFound));
+                return Result.Failure<UserResponse>(new Error("User.EmailExists", $"Email '{request.Email}' exists.", ErrorType.Conflict));
 
             var keycloakUserToCreate = new Keycloak.Net.Models.Users.User
             {
@@ -50,48 +42,77 @@ namespace Application.Users.Create
                 LastName = request.LastName,
                 Email = request.Email,
                 UserName = request.Email,
-                Enabled = true
+                Enabled = true,
+                EmailVerified = true,
+
+                Credentials = new List<Credentials>
+                {
+                    new Credentials
+                    {
+                        Type = "password",
+                        Value = "Andrea360!", 
+                        Temporary = true
+                    }
+                }
             };
 
             bool createResult = await _keycloakClient.CreateUserAsync(_realm, keycloakUserToCreate);
+
             if (!createResult)
-                return Result.Failure<UserResponse>(new Error(
-                    "Keycloak.Error",
-                    "Failed to create user in Keycloak.",
-                    ErrorType.Failure));
+                return Result.Failure<UserResponse>(new Error("Keycloak.Error", "Failed to create user in Keycloak.", ErrorType.Failure));
 
             var keycloakUser = (await _keycloakClient.GetUsersAsync(_realm, username: request.Email))
                                 .FirstOrDefault();
 
             if (keycloakUser is null)
-                return Result.Failure<UserResponse>(new Error(
-                    "Keycloak.Error",
-                    "User was created but could not be retrieved from Keycloak.",
-                    ErrorType.Failure));
+                return Result.Failure<UserResponse>(new Error("Keycloak.Error", "User created but could not be retrieved.", ErrorType.Failure));
 
-            var localUser = new User
+            if (request.Roles != null && request.Roles.Any())
             {
-                FirstName = keycloakUser.FirstName,
-                LastName = keycloakUser.LastName,
-                Email = keycloakUser.Email,
-                LocationId = request.LocationId,
-                KeycloakId = keycloakUser.Id,
-                StripeCustomerId = request.StripeCustomerId
-            };
+                var allRoles = await _keycloakClient.GetRolesAsync(_realm);
+                var rolesToAssign = allRoles.Where(r => request.Roles.Contains(r.Name)).ToList();
 
-            _context.Users.Add(localUser);
-            await _context.SaveChangesAsync(cancellationToken);
+                if (rolesToAssign.Any())
+                {
+                    await _keycloakClient.AddRealmRoleMappingsToUserAsync(_realm, keycloakUser.Id, rolesToAssign);
+                }
+            }
 
-            var userResponse = new UserResponse(
-                Id: keycloakUser.Id,
-                FirstName: keycloakUser.FirstName,
-                LastName: keycloakUser.LastName,
-                Email: keycloakUser.Email,
-                CreatedAtTimestamp: keycloakUser.CreatedTimestamp,
-                Enabled: keycloakUser.Enabled
-            );
+            try
+            {
+                var localUser = new Domain.Users.User
+                {
+                    Id = Guid.NewGuid(),
+                    FirstName = keycloakUser.FirstName,
+                    LastName = keycloakUser.LastName,
+                    Email = keycloakUser.Email,
+                    LocationId = request.LocationId,
+                    KeycloakId = keycloakUser.Id,
+                    StripeCustomerId = request.StripeCustomerId ?? "",
+                    Roles = request.Roles.ToList()
+                };
 
-            return Result.Success(userResponse);
+                _context.Users.Add(localUser);
+                await _context.SaveChangesAsync(cancellationToken);
+
+                var userResponse = new UserResponse(
+                    Id: localUser.Id,
+                    FirstName: keycloakUser.FirstName,
+                    LastName: keycloakUser.LastName,
+                    Email: keycloakUser.Email,
+                    CreatedAtTimestamp: keycloakUser.CreatedTimestamp,
+                    Enabled: keycloakUser.Enabled,
+                    RealmRoles: request.Roles ?? new List<string>(),
+                    LocationId: localUser.LocationId
+                );
+
+                return Result.Success(userResponse);
+            }
+            catch (Exception)
+            {
+                await _keycloakClient.DeleteUserAsync(_realm, keycloakUser.Id);
+                throw; 
+            }
         }
     }
 }

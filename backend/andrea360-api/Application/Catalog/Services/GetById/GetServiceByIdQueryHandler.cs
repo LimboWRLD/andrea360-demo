@@ -3,6 +3,7 @@ using Application.Abstractions.Messaging;
 using Application.Catalog.Services.Get;
 using Domain.Catalog;
 using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Application.Catalog.Services.GetById
     {
         public async Task<Result<GetServiceResponse>> Handle(GetServiceByIdQuery request, CancellationToken cancellationToken)
         {
-            Service? service = await context.Services.FindAsync(request.ServiceId, cancellationToken);
+            Service? service = await context.Services.Where(l => !l.IsDeleted).FirstOrDefaultAsync(s => s.Id == request.ServiceId, cancellationToken);
             if (service is null)
                 return Result.Failure<GetServiceResponse>
                 (new Error("Service.NotFound", $"The service with the Id='{request.ServiceId}' was not found", ErrorType.NotFound));

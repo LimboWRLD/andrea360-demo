@@ -10,7 +10,7 @@ namespace Application.Locations.Locations.Get
     {
         public async Task<Result<List<GetLocationResponse>>> Handle(GetLocationsQuery request, CancellationToken cancellationToken)
         {
-            List<Location> result = await context.Locations.ToListAsync(cancellationToken);
+            List<Location> result = await context.Locations.Include(l => l.Address).ThenInclude(c => c.City).ThenInclude(c => c.Country).Where(l => !l.IsDeleted).ToListAsync(cancellationToken);
 
             return Result.Success(mapper.Map<List<GetLocationResponse>>(result));
         }

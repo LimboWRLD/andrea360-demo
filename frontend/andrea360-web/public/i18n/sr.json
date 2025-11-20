@@ -1,0 +1,23 @@
+{
+  "HEADER": {
+    "HOME": "Početna",
+    "ADMIN": "Administracija",
+    "LOGOUT": "Odjavi se",
+    "TOGGLE": "Prikaži/Sakrij meni"
+  },
+  "SIDEBAR": {
+    "LOCATIONS": "Lokacije",
+    "EMPLOYEES": "Zaposleni",
+    "ADMIN": "Administracija",
+    "EMPLOYEE": "Zaposleni",
+    "MEMBERS": "Članovi",
+    "SERVICES": "Usluge",
+    "SCHEDULE": "Raspored",
+    "SHOP": "Prodavnica",
+    "BOOKING": "Rezervacija",
+    "PROFILE": "Profil"
+  },
+  "COMMON": {
+    "SAVE": "Sačuvaj"
+  }
+}
