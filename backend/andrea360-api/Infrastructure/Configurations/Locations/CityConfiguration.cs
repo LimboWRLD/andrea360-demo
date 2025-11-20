@@ -8,13 +8,11 @@ namespace Infrastructure.Configurations.Locations
     {
         public void Configure(EntityTypeBuilder<City> builder)
         {
-            builder.ToTable("Cities");
-
             builder.HasKey(c => c.Id);
 
             builder.HasIndex(c => c.Name).IsUnique();
 
-            builder.HasOne<Country>().WithMany().HasForeignKey(c => c.CountryId);
+            builder.HasOne<Country>(c => c.Country).WithMany(a => a.Cities).HasForeignKey(c => c.CountryId);
         }
     }
 }

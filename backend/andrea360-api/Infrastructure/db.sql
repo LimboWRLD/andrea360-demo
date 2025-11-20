@@ -20,570 +20,195 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 SET default_tablespace = '';
-
 SET default_table_access_method = heap;
 
 --
--- TOC entry 219 (class 1259 OID 22491)
--- Name: Addresses; Type: TABLE; Schema: public; Owner: postgres
+-- Tables
 --
 
-CREATE TABLE public."Addresses" (
-    "Id" uuid NOT NULL,
-    "IsDeleted" boolean DEFAULT false NOT NULL,
-    "Street" character varying(200) NOT NULL,
-    "Number" character varying(200) NOT NULL,
-    "CityId" uuid NOT NULL
+CREATE TABLE public.addresses (
+    id uuid NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
+    street character varying(200) NOT NULL,
+    number character varying(200) NOT NULL,
+    city_id uuid NOT NULL
 );
 
+ALTER TABLE public.addresses OWNER TO postgres;
 
-ALTER TABLE public."Addresses" OWNER TO postgres;
-
---
--- TOC entry 218 (class 1259 OID 22479)
--- Name: Cities; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Cities" (
-    "Id" uuid NOT NULL,
-    "IsDeleted" boolean DEFAULT false NOT NULL,
-    "Name" character varying(200) NOT NULL,
-    "CountryId" uuid NOT NULL
+CREATE TABLE public.cities (
+    id uuid NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
+    name character varying(200) NOT NULL,
+    country_id uuid NOT NULL
 );
 
+ALTER TABLE public.cities OWNER TO postgres;
 
-ALTER TABLE public."Cities" OWNER TO postgres;
-
---
--- TOC entry 217 (class 1259 OID 22472)
--- Name: Countries; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Countries" (
-    "Id" uuid NOT NULL,
-    "IsDeleted" boolean DEFAULT false NOT NULL,
-    "Name" character varying(200) NOT NULL
+CREATE TABLE public.countries (
+    id uuid NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
+    name character varying(200) NOT NULL
 );
 
+ALTER TABLE public.countries OWNER TO postgres;
 
-ALTER TABLE public."Countries" OWNER TO postgres;
-
---
--- TOC entry 220 (class 1259 OID 22502)
--- Name: Locations; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Locations" (
-    "Id" uuid NOT NULL,
-    "IsDeleted" boolean DEFAULT false NOT NULL,
-    "Name" character varying(200) NOT NULL,
-    "AddressId" uuid NOT NULL
+CREATE TABLE public.locations (
+    id uuid NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
+    name character varying(200) NOT NULL,
+    address_id uuid NOT NULL
 );
 
+ALTER TABLE public.locations OWNER TO postgres;
 
-ALTER TABLE public."Locations" OWNER TO postgres;
-
---
--- TOC entry 224 (class 1259 OID 22552)
--- Name: Reservations; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Reservations" (
-    "Id" uuid NOT NULL,
-    "IsDeleted" boolean DEFAULT false NOT NULL,
-    "SessionId" uuid NOT NULL,
-    "UserId" uuid NOT NULL,
-    "ReservedAt" timestamp without time zone NOT NULL,
-    "IsCancelled" boolean DEFAULT false NOT NULL
+CREATE TABLE public.reservations (
+    id uuid NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
+    session_id uuid NOT NULL,
+    user_id uuid NOT NULL,
+    reserved_at timestamp without time zone NOT NULL,
+    is_cancelled boolean DEFAULT false NOT NULL
 );
 
+ALTER TABLE public.reservations OWNER TO postgres;
 
-ALTER TABLE public."Reservations" OWNER TO postgres;
-
---
--- TOC entry 221 (class 1259 OID 22513)
--- Name: Services; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Services" (
-    "Id" uuid NOT NULL,
-    "IsDeleted" boolean DEFAULT false NOT NULL,
-    "Name" character varying(200) NOT NULL,
-    "Price" numeric(18,2) NOT NULL
+CREATE TABLE public.services (
+    id uuid NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
+    name character varying(200) NOT NULL,
+    price numeric(18,2) NOT NULL
 );
 
+ALTER TABLE public.services OWNER TO postgres;
 
-ALTER TABLE public."Services" OWNER TO postgres;
-
---
--- TOC entry 223 (class 1259 OID 22534)
--- Name: Sessions; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Sessions" (
-    "Id" uuid NOT NULL,
-    "IsDeleted" boolean DEFAULT false NOT NULL,
-    "StartTime" timestamp without time zone NOT NULL,
-    "EndTime" timestamp without time zone NOT NULL,
-    "LocationId" uuid NOT NULL,
-    "ServiceId" uuid NOT NULL,
-    "MaxCapacity" integer NOT NULL,
-    "CurrentCapacity" integer NOT NULL
+CREATE TABLE public.sessions (
+    id uuid NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
+    start_time timestamp without time zone NOT NULL,
+    end_time timestamp without time zone NOT NULL,
+    location_id uuid NOT NULL,
+    service_id uuid NOT NULL,
+    max_capacity integer NOT NULL,
+    current_capacity integer NOT NULL
 );
 
+ALTER TABLE public.sessions OWNER TO postgres;
 
-ALTER TABLE public."Sessions" OWNER TO postgres;
-
---
--- TOC entry 226 (class 1259 OID 22588)
--- Name: Transactions; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Transactions" (
-    "Id" uuid NOT NULL,
-    "IsDeleted" boolean DEFAULT false NOT NULL,
-    "UserId" uuid NOT NULL,
-    "ServiceId" uuid NOT NULL,
-    "Amount" numeric(18,2) NOT NULL,
-    "TransactionDate" timestamp without time zone NOT NULL,
-    "StripeTransactionId" character varying(255)
+CREATE TABLE public.transactions (
+    id uuid NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
+    user_id uuid NOT NULL,
+    service_id uuid NOT NULL,
+    amount numeric(18,2) NOT NULL,
+    transaction_date timestamp without time zone NOT NULL,
+    stripe_transaction_id character varying(255)
 );
 
+ALTER TABLE public.transactions OWNER TO postgres;
 
-ALTER TABLE public."Transactions" OWNER TO postgres;
-
---
--- TOC entry 225 (class 1259 OID 22569)
--- Name: UserServices; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."UserServices" (
-    "Id" uuid NOT NULL,
-    "IsDeleted" boolean DEFAULT false NOT NULL,
-    "UserId" uuid NOT NULL,
-    "ServiceId" uuid NOT NULL,
-    "RemainingSessions" integer NOT NULL
+CREATE TABLE public.user_services (
+    id uuid NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
+    user_id uuid NOT NULL,
+    service_id uuid NOT NULL,
+    remaining_sessions integer NOT NULL
 );
 
+ALTER TABLE public.user_services OWNER TO postgres;
 
-ALTER TABLE public."UserServices" OWNER TO postgres;
-
---
--- TOC entry 222 (class 1259 OID 22520)
--- Name: Users; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."Users" (
-    "Id" uuid NOT NULL,
-    "IsDeleted" boolean DEFAULT false NOT NULL,
-    "FirstName" character varying(100) NOT NULL,
-    "LastName" character varying(100) NOT NULL,
-    "Email" character varying(200) NOT NULL,
-    "LocationId" uuid NOT NULL,
-    "StripeCustomerId" character varying(200),
-    "KeycloakId" character varying(200) NOT NULL
+CREATE TABLE public.users (
+    id uuid NOT NULL,
+    is_deleted boolean DEFAULT false NOT NULL,
+    first_name character varying(100) NOT NULL,
+    last_name character varying(100) NOT NULL,
+    email character varying(200) NOT NULL,
+    location_id uuid NOT NULL,
+    stripe_customer_id character varying(200),
+    keycloak_id character varying(200) NOT NULL
 );
 
-
-ALTER TABLE public."Users" OWNER TO postgres;
+ALTER TABLE public.users OWNER TO postgres;
 
 --
--- TOC entry 4979 (class 0 OID 22491)
--- Dependencies: 219
--- Data for Name: Addresses; Type: TABLE DATA; Schema: public; Owner: postgres
+-- COPY data
 --
 
-COPY public."Addresses" ("Id", "IsDeleted", "Street", "Number", "CityId") FROM stdin;
+COPY public.addresses (id, is_deleted, street, number, city_id) FROM stdin;
 \.
 
-
---
--- TOC entry 4978 (class 0 OID 22479)
--- Dependencies: 218
--- Data for Name: Cities; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public."Cities" ("Id", "IsDeleted", "Name", "CountryId") FROM stdin;
+COPY public.cities (id, is_deleted, name, country_id) FROM stdin;
 \.
 
-
---
--- TOC entry 4977 (class 0 OID 22472)
--- Dependencies: 217
--- Data for Name: Countries; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public."Countries" ("Id", "IsDeleted", "Name") FROM stdin;
+COPY public.countries (id, is_deleted, name) FROM stdin;
 \.
 
-
---
--- TOC entry 4980 (class 0 OID 22502)
--- Dependencies: 220
--- Data for Name: Locations; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public."Locations" ("Id", "IsDeleted", "Name", "AddressId") FROM stdin;
+COPY public.locations (id, is_deleted, name, address_id) FROM stdin;
 \.
 
-
---
--- TOC entry 4984 (class 0 OID 22552)
--- Dependencies: 224
--- Data for Name: Reservations; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public."Reservations" ("Id", "IsDeleted", "SessionId", "UserId", "ReservedAt", "IsCancelled") FROM stdin;
+COPY public.reservations (id, is_deleted, session_id, user_id, reserved_at, is_cancelled) FROM stdin;
 \.
 
-
---
--- TOC entry 4981 (class 0 OID 22513)
--- Dependencies: 221
--- Data for Name: Services; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public."Services" ("Id", "IsDeleted", "Name", "Price") FROM stdin;
+COPY public.services (id, is_deleted, name, price) FROM stdin;
 \.
 
-
---
--- TOC entry 4983 (class 0 OID 22534)
--- Dependencies: 223
--- Data for Name: Sessions; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public."Sessions" ("Id", "IsDeleted", "StartTime", "EndTime", "LocationId", "ServiceId", "MaxCapacity", "CurrentCapacity") FROM stdin;
+COPY public.sessions (id, is_deleted, start_time, end_time, location_id, service_id, max_capacity, current_capacity) FROM stdin;
 \.
 
-
---
--- TOC entry 4986 (class 0 OID 22588)
--- Dependencies: 226
--- Data for Name: Transactions; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public."Transactions" ("Id", "IsDeleted", "UserId", "ServiceId", "Amount", "TransactionDate", "StripeTransactionId") FROM stdin;
+COPY public.transactions (id, is_deleted, user_id, service_id, amount, transaction_date, stripe_transaction_id) FROM stdin;
 \.
 
-
---
--- TOC entry 4985 (class 0 OID 22569)
--- Dependencies: 225
--- Data for Name: UserServices; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public."UserServices" ("Id", "IsDeleted", "UserId", "ServiceId", "RemainingSessions") FROM stdin;
+COPY public.user_services (id, is_deleted, user_id, service_id, remaining_sessions) FROM stdin;
 \.
 
-
---
--- TOC entry 4982 (class 0 OID 22520)
--- Dependencies: 222
--- Data for Name: Users; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public."Users" ("Id", "IsDeleted", "FirstName", "LastName", "Email", "LocationId", "StripeCustomerId", "KeycloakId") FROM stdin;
+COPY public.users (id, is_deleted, first_name, last_name, email, location_id, stripe_customer_id, keycloak_id) FROM stdin;
 \.
 
-
---
--- TOC entry 4795 (class 2606 OID 22496)
--- Name: Addresses Addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Addresses"
-    ADD CONSTRAINT "Addresses_pkey" PRIMARY KEY ("Id");
-
-
---
--- TOC entry 4792 (class 2606 OID 22484)
--- Name: Cities Cities_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Cities"
-    ADD CONSTRAINT "Cities_pkey" PRIMARY KEY ("Id");
-
-
---
--- TOC entry 4789 (class 2606 OID 22477)
--- Name: Countries Countries_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Countries"
-    ADD CONSTRAINT "Countries_pkey" PRIMARY KEY ("Id");
-
-
---
--- TOC entry 4797 (class 2606 OID 22507)
--- Name: Locations Locations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Locations"
-    ADD CONSTRAINT "Locations_pkey" PRIMARY KEY ("Id");
-
-
---
--- TOC entry 4809 (class 2606 OID 22558)
--- Name: Reservations Reservations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Reservations"
-    ADD CONSTRAINT "Reservations_pkey" PRIMARY KEY ("Id");
-
-
---
--- TOC entry 4800 (class 2606 OID 22518)
--- Name: Services Services_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Services"
-    ADD CONSTRAINT "Services_pkey" PRIMARY KEY ("Id");
-
-
---
--- TOC entry 4807 (class 2606 OID 22539)
--- Name: Sessions Sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Sessions"
-    ADD CONSTRAINT "Sessions_pkey" PRIMARY KEY ("Id");
-
-
---
--- TOC entry 4819 (class 2606 OID 22593)
--- Name: Transactions Transactions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Transactions"
-    ADD CONSTRAINT "Transactions_pkey" PRIMARY KEY ("Id");
-
-
---
--- TOC entry 4814 (class 2606 OID 22574)
--- Name: UserServices UserServices_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."UserServices"
-    ADD CONSTRAINT "UserServices_pkey" PRIMARY KEY ("Id");
-
-
---
--- TOC entry 4803 (class 2606 OID 22527)
--- Name: Users Users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Users"
-    ADD CONSTRAINT "Users_pkey" PRIMARY KEY ("Id");
-
-
---
--- TOC entry 4793 (class 1259 OID 22485)
--- Name: IX_Cities_Name; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE UNIQUE INDEX "IX_Cities_Name" ON public."Cities" USING btree ("Name");
-
-
---
--- TOC entry 4790 (class 1259 OID 22478)
--- Name: IX_Countries_Name; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE UNIQUE INDEX "IX_Countries_Name" ON public."Countries" USING btree ("Name");
-
-
---
--- TOC entry 4798 (class 1259 OID 22519)
--- Name: IX_Services_Name; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE UNIQUE INDEX "IX_Services_Name" ON public."Services" USING btree ("Name");
-
-
---
--- TOC entry 4804 (class 1259 OID 22550)
--- Name: IX_Sessions_LocationId; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX "IX_Sessions_LocationId" ON public."Sessions" USING btree ("LocationId");
-
-
---
--- TOC entry 4805 (class 1259 OID 22551)
--- Name: IX_Sessions_ServiceId; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX "IX_Sessions_ServiceId" ON public."Sessions" USING btree ("ServiceId");
-
-
---
--- TOC entry 4815 (class 1259 OID 22595)
--- Name: IX_Transactions_ServiceId; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX "IX_Transactions_ServiceId" ON public."Transactions" USING btree ("ServiceId");
-
-
---
--- TOC entry 4816 (class 1259 OID 22596)
--- Name: IX_Transactions_TransactionDate; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX "IX_Transactions_TransactionDate" ON public."Transactions" USING btree ("TransactionDate");
-
-
---
--- TOC entry 4817 (class 1259 OID 22594)
--- Name: IX_Transactions_UserId; Type: INDEX; Schema: public; Owner: postgres
 --
-
-CREATE INDEX "IX_Transactions_UserId" ON public."Transactions" USING btree ("UserId");
-
-
---
--- TOC entry 4810 (class 1259 OID 22576)
--- Name: IX_UserServices_ServiceId; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX "IX_UserServices_ServiceId" ON public."UserServices" USING btree ("ServiceId");
-
-
---
--- TOC entry 4811 (class 1259 OID 22575)
--- Name: IX_UserServices_UserId; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX "IX_UserServices_UserId" ON public."UserServices" USING btree ("UserId");
-
-
---
--- TOC entry 4812 (class 1259 OID 22577)
--- Name: IX_UserServices_UserId_ServiceId; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE UNIQUE INDEX "IX_UserServices_UserId_ServiceId" ON public."UserServices" USING btree ("UserId", "ServiceId");
-
-
---
--- TOC entry 4801 (class 1259 OID 22528)
--- Name: IX_Users_Email; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE UNIQUE INDEX "IX_Users_Email" ON public."Users" USING btree ("Email");
-
-
---
--- TOC entry 4821 (class 2606 OID 22497)
--- Name: Addresses FK_Addresses_Cities_CityId; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Addresses"
-    ADD CONSTRAINT "FK_Addresses_Cities_CityId" FOREIGN KEY ("CityId") REFERENCES public."Cities"("Id") ON DELETE CASCADE;
-
-
---
--- TOC entry 4820 (class 2606 OID 22486)
--- Name: Cities FK_Cities_Countries_CountryId; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Cities"
-    ADD CONSTRAINT "FK_Cities_Countries_CountryId" FOREIGN KEY ("CountryId") REFERENCES public."Countries"("Id") ON DELETE CASCADE;
-
-
---
--- TOC entry 4822 (class 2606 OID 22508)
--- Name: Locations FK_Locations_Addresses_AddressId; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Locations"
-    ADD CONSTRAINT "FK_Locations_Addresses_AddressId" FOREIGN KEY ("AddressId") REFERENCES public."Addresses"("Id") ON DELETE CASCADE;
-
-
---
--- TOC entry 4826 (class 2606 OID 22559)
--- Name: Reservations FK_Reservations_Sessions_SessionId; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Reservations"
-    ADD CONSTRAINT "FK_Reservations_Sessions_SessionId" FOREIGN KEY ("SessionId") REFERENCES public."Sessions"("Id") ON DELETE CASCADE;
-
-
---
--- TOC entry 4827 (class 2606 OID 22564)
--- Name: Reservations FK_Reservations_Users_UserId; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Reservations"
-    ADD CONSTRAINT "FK_Reservations_Users_UserId" FOREIGN KEY ("UserId") REFERENCES public."Users"("Id") ON DELETE CASCADE;
-
-
---
--- TOC entry 4824 (class 2606 OID 22540)
--- Name: Sessions FK_Sessions_Locations_LocationId; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Sessions"
-    ADD CONSTRAINT "FK_Sessions_Locations_LocationId" FOREIGN KEY ("LocationId") REFERENCES public."Locations"("Id") ON DELETE CASCADE;
-
-
---
--- TOC entry 4825 (class 2606 OID 22545)
--- Name: Sessions FK_Sessions_Services_ServiceId; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Sessions"
-    ADD CONSTRAINT "FK_Sessions_Services_ServiceId" FOREIGN KEY ("ServiceId") REFERENCES public."Services"("Id") ON DELETE CASCADE;
-
-
---
--- TOC entry 4830 (class 2606 OID 22602)
--- Name: Transactions FK_Transactions_Services_ServiceId; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Transactions"
-    ADD CONSTRAINT "FK_Transactions_Services_ServiceId" FOREIGN KEY ("ServiceId") REFERENCES public."Services"("Id") ON DELETE CASCADE;
-
-
---
--- TOC entry 4831 (class 2606 OID 22597)
--- Name: Transactions FK_Transactions_Users_UserId; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Transactions"
-    ADD CONSTRAINT "FK_Transactions_Users_UserId" FOREIGN KEY ("UserId") REFERENCES public."Users"("Id") ON DELETE CASCADE;
-
-
---
--- TOC entry 4828 (class 2606 OID 22583)
--- Name: UserServices FK_UserServices_Services_ServiceId; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."UserServices"
-    ADD CONSTRAINT "FK_UserServices_Services_ServiceId" FOREIGN KEY ("ServiceId") REFERENCES public."Services"("Id") ON DELETE CASCADE;
-
-
---
--- TOC entry 4829 (class 2606 OID 22578)
--- Name: UserServices FK_UserServices_Users_UserId; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."UserServices"
-    ADD CONSTRAINT "FK_UserServices_Users_UserId" FOREIGN KEY ("UserId") REFERENCES public."Users"("Id") ON DELETE CASCADE;
-
-
---
--- TOC entry 4823 (class 2606 OID 22529)
--- Name: Users FK_Users_Locations_LocationId; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Users"
-    ADD CONSTRAINT "FK_Users_Locations_LocationId" FOREIGN KEY ("LocationId") REFERENCES public."Locations"("Id") ON DELETE CASCADE;
-
-
--- Completed on 2025-11-16 00:52:53
-
---
--- PostgreSQL database dump complete
---
-
+-- Primary Keys
+--
+
+ALTER TABLE ONLY public.addresses ADD CONSTRAINT addresses_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.cities ADD CONSTRAINT cities_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.countries ADD CONSTRAINT countries_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.locations ADD CONSTRAINT locations_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.reservations ADD CONSTRAINT reservations_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.services ADD CONSTRAINT services_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.sessions ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.transactions ADD CONSTRAINT transactions_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.user_services ADD CONSTRAINT user_services_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.users ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+--
+-- Indexes
+--
+
+CREATE UNIQUE INDEX ix_cities_name ON public.cities USING btree (name);
+CREATE UNIQUE INDEX ix_countries_name ON public.countries USING btree (name);
+CREATE UNIQUE INDEX ix_services_name ON public.services USING btree (name);
+CREATE INDEX ix_sessions_location_id ON public.sessions USING btree (location_id);
+CREATE INDEX ix_sessions_service_id ON public.sessions USING btree (service_id);
+CREATE INDEX ix_transactions_service_id ON public.transactions USING btree (service_id);
+CREATE INDEX ix_transactions_transaction_date ON public.transactions USING btree (transaction_date);
+CREATE INDEX ix_transactions_user_id ON public.transactions USING btree (user_id);
+CREATE INDEX ix_user_services_service_id ON public.user_services USING btree (service_id);
+CREATE INDEX ix_user_services_user_id ON public.user_services USING btree (user_id);
+CREATE UNIQUE INDEX ix_user_services_user_id_service_id ON public.user_services USING btree (user_id, service_id);
+CREATE UNIQUE INDEX ix_users_email ON public.users USING btree (email);
+
+--
+-- Foreign Keys
+--
+
+ALTER TABLE ONLY public.addresses ADD CONSTRAINT fk_addresses_cities_city_id FOREIGN KEY (city_id) REFERENCES public.cities(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.cities ADD CONSTRAINT fk_cities_countries_country_id FOREIGN KEY (country_id) REFERENCES public.countries(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.locations ADD CONSTRAINT fk_locations_addresses_address_id FOREIGN KEY (address_id) REFERENCES public.addresses(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.reservations ADD CONSTRAINT fk_reservations_sessions_session_id FOREIGN KEY (session_id) REFERENCES public.sessions(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.reservations ADD CONSTRAINT fk_reservations_users_user_id FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.sessions ADD CONSTRAINT fk_sessions_locations_location_id FOREIGN KEY (location_id) REFERENCES public.locations(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.sessions ADD CONSTRAINT fk_sessions_services_service_id FOREIGN KEY (service_id) REFERENCES public.services(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.transactions ADD CONSTRAINT fk_transactions_services_service_id FOREIGN KEY (service_id) REFERENCES public.services(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.transactions ADD CONSTRAINT fk_transactions_users_user_id FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.user_services ADD CONSTRAINT fk_user_services_services_service_id FOREIGN KEY (service_id) REFERENCES public.services(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.user_services ADD CONSTRAINT fk_user_services_users_user_id FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.users ADD CONSTRAINT fk_users_locations_location_id FOREIGN KEY (location_id) REFERENCES public.locations(id) ON DELETE CASCADE;

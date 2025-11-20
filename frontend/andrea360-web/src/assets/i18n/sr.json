@@ -2,7 +2,71 @@
   "HEADER": {
     "HOME": "Početna",
     "ADMIN": "Administracija",
-    "LOGOUT": "Odjavi se"
+    "LOGOUT": "Odjavi se",
+    "TOGGLE": "Prikaži/Sakrij meni"
+  },
+  "SIDEBAR": {
+    "LOCATIONS": "Lokacije",
+    "EMPLOYEES": "Zaposleni",
+    "ADMIN": "Administracija",
+    "EMPLOYEE": "Zaposleni",
+    "MEMBERS": "Članovi",
+    "SERVICES": "Usluge",
+    "SCHEDULE": "Raspored",
+    "SHOP": "Prodavnica",
+    "BOOKING": "Rezervacija",
+    "PROFILE": "Profil"
+  },
+
+  "LOCATION": {
+    "TITLE": "Upravljanje lokacijama",
+
+    "TABS": {
+      "LOCATIONS": "Lokacije",
+      "ADDRESSES": "Adrese",
+      "CITIES": "Gradovi",
+      "COUNTRIES": "Države"
+    },
+
+    "BUTTONS": {
+      "ADD": "Dodaj {{entity}}",
+      "CREATE": "Kreiraj",
+      "UPDATE": "Ažuriraj",
+      "CANCEL": "Otkaži"
+    },
+
+    "TABLE": {
+      "ACTIONS": "Akcije",
+      "EDIT": "Izmeni",
+      "DELETE": "Obriši",
+      "NO_DATA": "Nema podataka"
+    },
+
+    "ENTITY": {
+      "LOCATIONS": "lokaciju",
+      "ADDRESSES": "adresu",
+      "CITIES": "grad",
+      "COUNTRIES": "državu"
+    },
+
+    "FIELDS": {
+      "NAME": "Naziv",
+      "LOCATION_NAME": "Naziv lokacije",
+      "STREET": "Ulica",
+      "NUMBER": "Broj",
+      "CITY": "Grad",
+      "COUNTRY": "Država",
+
+      "PLACEHOLDERS": {
+        "LOCATION_NAME": "Unesite naziv lokacije",
+        "STREET": "Unesite ime ulice",
+        "NUMBER": "Unesite broj",
+        "CITY": "Izaberite grad",
+        "COUNTRY": "Izaberite državu"
+      },
+
+      "REQUIRED": "{{field}} je obavezno"
+    }
   },
   "COMMON": {
     "SAVE": "Sačuvaj"

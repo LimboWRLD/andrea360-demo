@@ -13,8 +13,6 @@ namespace Infrastructure.Configurations.Catalog
     {
         public void Configure(EntityTypeBuilder<Service> builder)
         {
-            builder.ToTable("Services");
-
             builder.HasKey(s => s.Id);
 
             builder.Property(s => s.Name)

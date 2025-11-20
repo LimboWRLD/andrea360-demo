@@ -28,7 +28,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=andrea360
     volumes:
-      - ./infrastructure/db:/docker-entrypoint-initdb.d/db.sql
+      - ./infrastructure/db.sql:/docker-entrypoint-initdb.d/db.sql
       - andrea360-data:/var/lib/postgresql/data
     ports:
       - 5450:5432

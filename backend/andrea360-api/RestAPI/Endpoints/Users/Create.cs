@@ -14,6 +14,8 @@ namespace RestAPI.Endpoints.Users
         public string Email { get; set; }
         public Guid LocationId { get; set; }
         public string? StripeCustomerId { get; set; }
+
+        public List<string>? RealmRoles { get; set; }
     }
 
     public sealed class CreateUser : Endpoint<CreateRequest, UserResponse>
@@ -39,7 +41,8 @@ namespace RestAPI.Endpoints.Users
                 LastName = req.LastName,
                 Email = req.Email,
                 LocationId = req.LocationId,
-                StripeCustomerId = req.StripeCustomerId
+                StripeCustomerId = req.StripeCustomerId,
+                Roles = req.RealmRoles
             };
 
             var result = await _sender.Send(command, ct);

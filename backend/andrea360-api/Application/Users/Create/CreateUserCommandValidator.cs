@@ -16,7 +16,6 @@ namespace Application.Users.Create
             RuleFor(c => c.Email).NotEmpty().EmailAddress().MaximumLength(255);
             RuleFor(c => c.LocationId).NotEmpty();
             RuleFor(c => c.StripeCustomerId).MaximumLength(255);
-            RuleFor(c => c.KeycloakId).NotEmpty().MaximumLength(255);
         }
     }
 }

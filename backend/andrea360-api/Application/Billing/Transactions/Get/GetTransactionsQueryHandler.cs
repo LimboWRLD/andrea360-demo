@@ -10,7 +10,7 @@ namespace Application.Billing.Transactions.Get
     {
         public async Task<Result<List<GetTransactionResponse>>> Handle(GetTransactionsQuery request, CancellationToken cancellationToken)
         {
-            List<Transaction> result = await context.Transactions.ToListAsync(cancellationToken);
+            List<Transaction> result = await context.Transactions.Where(l => !l.IsDeleted).ToListAsync(cancellationToken);
 
             return mapper.Map<List<GetTransactionResponse>>(result);
         }

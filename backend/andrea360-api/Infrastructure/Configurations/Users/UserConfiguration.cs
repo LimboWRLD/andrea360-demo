@@ -13,8 +13,6 @@ namespace Infrastructure.Configurations.Users
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("Users");
-
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.FirstName)
@@ -51,7 +49,7 @@ namespace Infrastructure.Configurations.Users
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(x => x.Transactions)
-                .WithOne()
+                .WithOne(t => t.User)
                 .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 

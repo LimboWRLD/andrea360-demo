@@ -3,12 +3,14 @@
 namespace Application.Users.Get
 {
     public sealed record UserResponse(
-    string Id,
+    Guid Id,
     string FirstName,
     string LastName,
     string Email,
     long CreatedAtTimestamp,
-    bool? Enabled
+    bool? Enabled,
+    Guid LocationId,
+    IEnumerable<string>RealmRoles
     );
 
     public sealed class GetAllUsersQuery : IQuery<IEnumerable<UserResponse>>

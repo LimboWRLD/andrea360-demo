@@ -3,6 +3,7 @@ using Application.Abstractions.Messaging;
 using Application.Billing.Transactions.Get;
 using Domain.Billing;
 using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Application.Billing.Transactions.GetById
@@ -11,7 +12,7 @@ namespace Application.Billing.Transactions.GetById
     {
         public async Task<Result<GetTransactionResponse>> Handle(GetTransactionByIdQuery request, CancellationToken cancellationToken)
         {
-            Transaction? transaction = await context.Transactions.FindAsync(request.TransactionId, cancellationToken);
+            Transaction? transaction = await context.Transactions.Where(l => !l.IsDeleted).FirstOrDefaultAsync(t => t.Id == request.TransactionId, cancellationToken);
 
             if (transaction is null)
                 return Result.Failure<GetTransactionResponse>

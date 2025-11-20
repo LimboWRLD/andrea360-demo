@@ -17,7 +17,7 @@ namespace Application.Scheduling.Reservations.GetByUserId
         public async Task<Result<List<GetReservationResponse>>> Handle(GetReservationByUserIdQuery request, CancellationToken cancellationToken)
         {
             List<Reservation> result = await context.Reservations
-                .Where(r => r.UserId == request.UserId)
+                .Where(r => r.UserId == request.UserId && !r.IsDeleted)
                 .ToListAsync(cancellationToken);
             return Result.Success(mapper.Map<List<GetReservationResponse>>(result));
         }

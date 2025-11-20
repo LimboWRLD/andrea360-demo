@@ -12,25 +12,25 @@ namespace Infrastructure.Database
     public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : DbContext(options), IApplicationDbContext
     {
-        public DbSet<Country> Countries { get; }
+        public DbSet<Country> Countries { get; set; }
 
-        public DbSet<City> Cities { get; }
+        public DbSet<City> Cities { get; set; }
 
-        public DbSet<Address> Addresses { get; }
+        public DbSet<Address> Addresses { get; set; }
 
-        public DbSet<Location> Locations { get; }
+        public DbSet<Location> Locations { get; set; }
 
-        public DbSet<User> Users { get; }
+        public DbSet<User> Users { get; set; }
 
-        public DbSet<Transaction> Transactions { get; }
+        public DbSet<Transaction> Transactions { get; set; }
 
-        public DbSet<UserService> UserServices { get; }
+        public DbSet<UserService> UserServices { get; set; }
 
-        public DbSet<Service> Services { get; }
+        public DbSet<Service> Services { get; set; }
 
-        public DbSet<Reservation> Reservations { get; }
+        public DbSet<Reservation> Reservations { get; set; }
 
-        public DbSet<Session> Sessions { get; }
+        public DbSet<Session> Sessions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
