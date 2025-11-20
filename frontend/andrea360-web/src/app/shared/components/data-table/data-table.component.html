@@ -2,7 +2,7 @@
   <table class="table table-zebra w-full bg-base-300">
     <thead>
       <tr>
-        <th *ngFor="let column of columns">{{ column.label }}</th>
+        <th *ngFor="let column of columns">{{ column.label | translate }}</th>
         <th>Actions</th>
       </tr>
     </thead>

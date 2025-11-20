@@ -125,7 +125,8 @@ CREATE TABLE public.users (
     email character varying(200) NOT NULL,
     location_id uuid NOT NULL,
     stripe_customer_id character varying(200),
-    keycloak_id character varying(200) NOT NULL
+    keycloak_id character varying(200) NOT NULL,
+    roles TEXT[] NOT NULL DEFAULT ARRAY[]::TEXT[]
 );
 
 ALTER TABLE public.users OWNER TO postgres;

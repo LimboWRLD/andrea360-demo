@@ -1,23 +1,37 @@
 <div class="card bg-base-100 shadow-xl text-base-content">
   <div class="card-body">
-    <h2 class="card-title">{{ title }}</h2>
+    <h2 class="card-title">{{ title | translate }}</h2>
     <form [formGroup]="form" (ngSubmit)="submit()">
       <div class="space-y-4">
         <div *ngFor="let field of fields" class="form-control w-full">
-          <label class="label">
-            <span class="label-text">{{ field.label }}</span>
-            <span *ngIf="field.required" class="label-text-alt text-error">*</span>
+          <label class="label" *ngIf="field.type != 'switch'">
+            <span class="label-text">{{ field.label | translate }}</span>
+            <span *ngIf="field.required" class="label-text-alt text-error"
+              >*</span
+            >
           </label>
 
-          <!-- Text Input -->
+          <!-- Text/Number Input without Suffix -->
           <input
-            *ngIf="field.type === 'text' || field.type === 'number'"
+            *ngIf="(field.type === 'text' || field.type === 'number') && !field.suffix"
             [type]="field.type"
             [formControlName]="field.name"
             [placeholder]="field.placeholder || ''"
             class="input input-bordered w-full"
             [class.input-error]="isFieldInvalid(field.name)"
           />
+          
+          <!-- Number Input with Suffix (DaisyUI Join) -->
+          <div *ngIf="(field.type === 'text' || field.type === 'number') && field.suffix" class="join w-full">
+            <input
+              [type]="field.type"
+              [formControlName]="field.name"
+              [placeholder]="field.placeholder || ''"
+              class="input input-bordered join-item flex-1"
+              [class.input-error]="isFieldInvalid(field.name)"
+            />
+            <button type="button" class="join-item btn btn-disabled bg-base-200">{{ field.suffix }}</button>
+          </div>
 
           <!-- Select Input -->
           <select
@@ -26,22 +40,50 @@
             class="select select-bordered w-full"
             [class.select-error]="isFieldInvalid(field.name)"
           >
-            <option value="" disabled selected>Select {{ field.label }}</option>
+            <option value="" disabled selected>Select {{ field.label | translate }}</option>
+            <option *ngFor="let option of field.options" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+
+          <!-- Switch Input -->
+          <div *ngIf="field.type === 'switch'" class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text">{{ field.label | translate }}</span>
+              <input
+                type="checkbox"
+                class="toggle"
+                [formControlName]="field.name"
+              />
+            </label>
+          </div>
+
+          <!-- Multi Select -->
+          <select
+            *ngIf="field.type === 'multiselect'"
+            [formControlName]="field.name"
+            class="select select-bordered w-full"
+            multiple
+          >
             <option *ngFor="let option of field.options" [value]="option.value">
               {{ option.label }}
             </option>
           </select>
 
           <label *ngIf="isFieldInvalid(field.name)" class="label">
-            <span class="label-text-alt text-error">{{ field.label }} is required</span>
+            <span class="label-text-alt text-error"
+              >{{ field.label | translate }} is required</span
+            >
           </label>
         </div>
       </div>
 
       <div class="card-actions justify-end mt-6">
-        <button type="button" class="btn btn-ghost" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-ghost" (click)="cancel()">
+          Cancel
+        </button>
         <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-          {{ data ? 'Update' : 'Create' }}
+          {{ data ? "Update" : "Create" }}
         </button>
       </div>
     </form>

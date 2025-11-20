@@ -18,8 +18,6 @@ namespace Domain.Scheduling
 
         public int CurrentCapacity { get; set; }
 
-        public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
-        public ICollection<UserService> UserServices { get; set; } = new List<UserService>();
         public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

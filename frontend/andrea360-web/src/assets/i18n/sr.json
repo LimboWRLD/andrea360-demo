@@ -17,38 +17,32 @@
     "BOOKING": "Rezervacija",
     "PROFILE": "Profil"
   },
-
   "LOCATION": {
     "TITLE": "Upravljanje lokacijama",
-
     "TABS": {
       "LOCATIONS": "Lokacije",
       "ADDRESSES": "Adrese",
       "CITIES": "Gradovi",
       "COUNTRIES": "Države"
     },
-
     "BUTTONS": {
       "ADD": "Dodaj {{entity}}",
       "CREATE": "Kreiraj",
       "UPDATE": "Ažuriraj",
       "CANCEL": "Otkaži"
     },
-
     "TABLE": {
       "ACTIONS": "Akcije",
       "EDIT": "Izmeni",
       "DELETE": "Obriši",
       "NO_DATA": "Nema podataka"
     },
-
     "ENTITY": {
       "LOCATIONS": "lokaciju",
       "ADDRESSES": "adresu",
       "CITIES": "grad",
       "COUNTRIES": "državu"
     },
-
     "FIELDS": {
       "NAME": "Naziv",
       "LOCATION_NAME": "Naziv lokacije",
@@ -56,7 +50,6 @@
       "NUMBER": "Broj",
       "CITY": "Grad",
       "COUNTRY": "Država",
-
       "PLACEHOLDERS": {
         "LOCATION_NAME": "Unesite naziv lokacije",
         "STREET": "Unesite ime ulice",
@@ -64,9 +57,149 @@
         "CITY": "Izaberite grad",
         "COUNTRY": "Izaberite državu"
       },
-
       "REQUIRED": "{{field}} je obavezno"
     }
+  },
+  "EMPLOYEE": {
+    "TITLE": "Upravljanje zaposlenima",
+    "TABS": {
+      "EMPLOYEES": "Zaposleni"
+    },
+    "FORM": {
+      "TITLE": "Forma za zaposlenog"
+    },
+    "BUTTONS": {
+      "ADD": "Dodaj {{entity}}",
+      "CREATE": "Kreiraj",
+      "UPDATE": "Ažuriraj",
+      "CANCEL": "Otkaži"
+    },
+    "TABLE": {
+      "ACTIONS": "Akcije",
+      "EDIT": "Izmeni",
+      "DELETE": "Obriši",
+      "NO_DATA": "Nema podataka"
+    },
+    "ENTITY": {
+      "EMPLOYEES": "zaposlenog"
+    },
+    "FIELDS": {
+      "FIRST_NAME": "Ime",
+      "LAST_NAME": "Prezime",
+      "EMAIL": "Email",
+      "LOCATION": "Lokacija",
+      "ENABLED": "Omogućen",
+      "ROLES": "Role",
+      "PLACEHOLDERS": {
+        "FIRST_NAME": "Unesite ime",
+        "LAST_NAME": "Unesite prezime",
+        "EMAIL": "Unesite email",
+        "LOCATION": "Izaberite lokaciju",
+        "ENABLED": "Izaberite status",
+        "ROLES": "Izaberite role"
+      },
+      "REQUIRED": "{{field}} je obavezno"
+    },
+    "FILTER": {
+      "LOCATION": "Filtriraj po lokaciji",
+      "ENABLED": "Filtriraj po statusu",
+      "ALL": "Svi"
+    }
+  },
+  "MEMBER": {
+    "TITLE": "Upravljanje članovima",
+    "TABS": {
+      "MEMBERS": "Članovi"
+    },
+    "FORM": {
+      "TITLE": "Forma za člana"
+    },
+    "BUTTONS": {
+      "ADD": "Dodaj {{entity}}",
+      "CREATE": "Kreiraj",
+      "UPDATE": "Ažuriraj",
+      "CANCEL": "Otkaži"
+    },
+    "TABLE": {
+      "ACTIONS": "Akcije",
+      "EDIT": "Izmeni",
+      "DELETE": "Obriši",
+      "NO_DATA": "Nema podataka"
+    },
+    "ENTITY": {
+      "MEMBERS": "člana"
+    },
+    "FIELDS": {
+      "FIRST_NAME": "Ime",
+      "LAST_NAME": "Prezime",
+      "EMAIL": "Email",
+      "LOCATION": "Lokacija",
+      "ENABLED": "Omogućen",
+      "ROLES": "Role",
+      "PLACEHOLDERS": {
+        "FIRST_NAME": "Unesite ime",
+        "LAST_NAME": "Unesite prezime",
+        "EMAIL": "Unesite email",
+        "LOCATION": "Izaberite lokaciju",
+        "ENABLED": "Izaberite status",
+        "ROLES": "Izaberite role"
+      },
+      "REQUIRED": "{{field}} je obavezno"
+    },
+    "FILTER": {
+      "LOCATION": "Filtriraj po lokaciji",
+      "ENABLED": "Filtriraj po statusu",
+      "ALL": "Svi"
+    }
+  },
+  "SERVICE": {
+    "TITLE": "Upravljanje uslugama",
+    "FORM": {
+      "TITLE": "Forma za uslugu"
+    },
+    "BUTTONS": {
+      "ADD": "Dodaj {{entity}}",
+      "CREATE": "Kreiraj",
+      "UPDATE": "Ažuriraj",
+      "CANCEL": "Otkaži"
+    },
+    "TABLE": {
+      "ACTIONS": "Akcije",
+      "EDIT": "Izmeni",
+      "DELETE": "Obriši",
+      "NO_DATA": "Nema podataka"
+    },
+    "ENTITY": {
+      "SERVICES": "uslugu"
+    },
+    "FIELDS": {
+      "NAME": "Naziv usluge",
+      "PRICE": "Cena",
+      "PLACEHOLDERS": {
+        "NAME": "Unesite naziv usluge",
+        "PRICE": "Unesite cenu"
+      },
+      "REQUIRED": "{{field}} je obavezno"
+    }
+  },
+  "SHOP": {
+    "TITLE": "Prodavnica usluga",
+    "SUBTITLE": "Pregledajte i kupite naše usluge",
+    "PAYMENT_TITLE": "Završite kupovinu",
+    "BUY_BUTTON": "Kupi sada",
+    "NO_SERVICES": "Nema dostupnih usluga"
+  },
+  "PAYMENT": {
+    "FIELDS": {
+      "NAME": "Puno ime",
+      "EMAIL": "Email adresa"
+    },
+    "ERRORS": {
+      "NAME_REQUIRED": "Ime je obavezno",
+      "EMAIL_INVALID": "Molimo unesite validnu email adresu"
+    },
+    "PROCESSING": "Obrada plaćanja...",
+    "PAY_BUTTON": "Plati"
   },
   "COMMON": {
     "SAVE": "Sačuvaj"
