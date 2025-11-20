@@ -1,0 +1,10 @@
+{
+  "HEADER": {
+    "HOME": "Home",
+    "ADMIN": "Administration",
+    "LOGOUT": "Logout"
+  },
+  "COMMON": {
+    "SAVE": "Save"
+  }
+}

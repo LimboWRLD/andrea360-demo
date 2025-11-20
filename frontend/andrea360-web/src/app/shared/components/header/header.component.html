@@ -1,0 +1,92 @@
+<header
+  class="w-full bg-cyan-400 shadow flex items-center justify-between px-6 py-3"
+>
+  <div class="flex items-center text-white">
+    <svg
+      class="w-12 h-12 fill-white"
+      viewBox="0 0 300 300"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M 271.4 198.7
+       c -0.2 -0.3 -0.3 -0.6 -0.5 -0.9
+       l -45.5 -78.7
+       l -10.1 -17.4
+       l -49.1 -85
+       c -12.8 -22.2 -44.9 -22.2 -57.7 0
+       l -49.9 86.4
+       l -10.1 17.4
+       L 4 197.8
+       c -0.2 0.3 -0.3 0.6 -0.5 0.9
+       c -12.2 22.7 9.1 49 34 42.2
+       c 18.6 -5.1 40.7 -8.9 64.8 -10.7
+       c 10.4 -0.8 18.5 -9.6 18.5 -20
+       v -1.3
+       c 0 -7.1 -3.8 -13.8 -10 -17.3
+       c -16.9 -9.7 -27.9 -28.5 -26.6 -49.7
+       c 1.7 -26.5 23.2 -48 49.7 -49.7
+       c 32.2 -2 58.7 24.5 56.6 56.6
+       c -1.1 18 -11.5 33.7 -26.3 42.5
+       c -6.3 3.7 -10.3 10.3 -10.3 17.5
+       v 1.4
+       c 0 10.5 8 19.2 18.5 20
+       c 24.1 1.9 46.2 5.6 64.8 10.7
+       c 24.9 6.9 46.3 -19.5 34 -42.2
+       Z"
+      />
+    </svg>
+    <h1 class="text-xl font-semibold">
+      {{ "HEADER.HOME" | translate }}
+    </h1>
+  </div>
+
+  <div class="flex items-center gap-4">
+    <div class="relative inline-block text-left">
+      <button
+        (click)="open = !open"
+        class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-1.5 bg-white text-gray-700 shadow-sm hover:bg-gray-50"
+      >
+        <span *ngIf="currentLang === 'en'">🇬🇧 English</span>
+        <span *ngIf="currentLang === 'sr'">🇷🇸 Srpski</span>
+        <svg
+          class="w-4 h-4 opacity-70"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+
+      <div
+        *ngIf="open"
+        class="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg"
+      >
+        <button
+          class="flex w-full items-center gap-2 px-3 py-2 hover:bg-gray-100"
+          (click)="switchLang('en'); open = false"
+        >
+          🇬🇧 English
+        </button>
+
+        <button
+          class="flex w-full items-center gap-2 px-3 py-2 hover:bg-gray-100"
+          (click)="switchLang('sr'); open = false"
+        >
+          🇷🇸 Srpski
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center cursor-pointer hover:scale-105 transition"
+    >
+      <span class="font-semibold text-gray-700">A</span>
+    </div>
+  </div>
+</header>
