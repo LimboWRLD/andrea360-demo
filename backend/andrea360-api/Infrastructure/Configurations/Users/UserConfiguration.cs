@@ -49,7 +49,7 @@ namespace Infrastructure.Configurations.Users
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(x => x.Transactions)
-                .WithOne()
+                .WithOne(t => t.User)
                 .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 

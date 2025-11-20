@@ -1,0 +1,43 @@
+<div class="container mx-auto p-4 text-base-content">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-3xl font-bold">
+      {{ "EMPLOYEE.TITLE" | translate }}
+    </h1>
+
+    <button class="btn btn-primary" (click)="openForm()">
+      + {{ "EMPLOYEE.BUTTONS.ADD" | translate: { entity: ("EMPLOYEE.ENTITY.EMPLOYEES" | translate) } }}
+    </button>
+  </div>
+
+  <div *ngIf="!showForm" class="card bg-base-100 shadow p-4 mb-6">
+    <div class="form-control w-64">
+      <label class="label">
+        <span class="label-text">{{ "EMPLOYEE.FILTER.LOCATION" | translate }}</span>
+      </label>
+      <select class="select select-bordered" [(ngModel)]="locationFilter" (change)="filterEmployees()">
+        <option value="">{{ "EMPLOYEE.FILTER.ALL" | translate }}</option>
+        <option *ngFor="let loc of locations" [value]="loc.id">
+          {{ loc.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <app-data-table
+    *ngIf="!showForm"
+    [columns]="employeeColumns"
+    [data]="filteredEmployees"
+    (onEdit)="openForm($event)"
+    (onDelete)="onDelete($event)"
+  ></app-data-table>
+
+  <div *ngIf="showForm" class="max-w-xl mx-auto mt-6">
+    <app-entity-form
+      [fields]="employeeFields"
+      [data]="selectedEmployee"
+      [title]="'EMPLOYEE.FORM.TITLE' | translate"
+      (onSubmit)="onSubmit($event)"
+      (onCancel)="closeForm()"
+    ></app-entity-form>
+  </div>
+</div>
