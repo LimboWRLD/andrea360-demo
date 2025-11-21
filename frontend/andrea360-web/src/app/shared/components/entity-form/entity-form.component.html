@@ -16,7 +16,7 @@
             *ngIf="(field.type === 'text' || field.type === 'number') && !field.suffix"
             [type]="field.type"
             [formControlName]="field.name"
-            [placeholder]="field.placeholder || ''"
+            [placeholder]="(field.placeholder | translate) || ''"
             class="input input-bordered w-full"
             [class.input-error]="isFieldInvalid(field.name)"
           />
@@ -26,7 +26,7 @@
             <input
               [type]="field.type"
               [formControlName]="field.name"
-              [placeholder]="field.placeholder || ''"
+              [placeholder]="(field.placeholder | translate) || ''"
               class="input input-bordered join-item flex-1"
               [class.input-error]="isFieldInvalid(field.name)"
             />
@@ -72,7 +72,7 @@
 
           <label *ngIf="isFieldInvalid(field.name)" class="label">
             <span class="label-text-alt text-error"
-              >{{ field.label | translate }} is required</span
+              >{{ field.label | translate }} {{'COMMON.REQUIRED' | translate}}</span
             >
           </label>
         </div>
@@ -80,10 +80,10 @@
 
       <div class="card-actions justify-end mt-6">
         <button type="button" class="btn btn-ghost" (click)="cancel()">
-          Cancel
+          {{ 'COMMON.CANCEL' | translate }}
         </button>
         <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-          {{ data ? "Update" : "Create" }}
+          {{ data ? ('COMMON.UPDATE' | translate) : ('COMMON.CREATE' | translate) }}
         </button>
       </div>
     </form>

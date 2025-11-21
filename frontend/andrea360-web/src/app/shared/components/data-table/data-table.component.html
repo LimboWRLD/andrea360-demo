@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <th *ngFor="let column of columns">{{ column.label | translate }}</th>
-        <th>Actions</th>
+        <th> {{ 'COMMON.ACTIONS' | translate }}</th>
       </tr>
     </thead>
     <tbody>
@@ -14,7 +14,7 @@
       </tr>
       <tr *ngIf="!loading && data.length === 0">
         <td [attr.colspan]="columns.length + 1" class="text-center bg-base-100">
-          No data available
+          {{ 'COMMON.NO_DATA' | translate }}
         </td>
       </tr>
       <tr *ngFor="let row of data" class="hover">
@@ -25,13 +25,13 @@
               class="btn btn-sm btn-primary" 
               (click)="editRow(row)"
               aria-label="Edit">
-              Edit
+              {{ 'COMMON.EDIT' | translate}}
             </button>
             <button 
               class="btn btn-sm btn-error" 
               (click)="deleteRow(row)"
               aria-label="Delete">
-              Delete
+              {{'COMMON.DELETE' | translate  }}
             </button>
           </div>
         </td>

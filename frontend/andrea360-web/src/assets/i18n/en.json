@@ -202,6 +202,14 @@
     "PAY_BUTTON": "Pay"
   },
   "COMMON": {
-    "SAVE": "Save"
+    "SAVE": "Save",
+    "ACTIONS": "Actions",
+    "NO_DATA": "No data available",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "CREATE": "Create",
+    "REQUIRED": "is required",
+    "UPDATE": "Update",
+    "CANCEL": "Cancel"
   }
 }

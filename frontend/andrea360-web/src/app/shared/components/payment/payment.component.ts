@@ -111,8 +111,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.stripe
       .confirmPayment({
         elements: this.elementsInstance,
-        // Some payment methods (e.g. bancontact, eps) require a `return_url` when confirming.
-        // We provide the current location so Stripe can redirect back if necessary.
         confirmParams: {
           return_url: window.location.href,
           payment_method_data: {

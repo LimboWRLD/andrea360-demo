@@ -40,34 +40,34 @@ export class LocationComponent implements OnInit {
   countries: Country[] = [];
 
   locationColumns: TableColumn[] = [
-    { key: 'name', label: 'Name' },
-    { key: 'address.street', label: 'Street' },
-    { key: 'address.number', label: 'Number' },
-    { key: 'address.city.name', label: 'City' },
-    { key: 'address.city.country.name', label: 'Country' },
+    { key: 'name', label: 'LOCATION.FIELDS.NAME' },
+    { key: 'address.street', label: 'LOCATION.FIELDS.NAME' },
+    { key: 'address.number', label: 'LOCATION.FIELDS.NUMBER' },
+    { key: 'address.city.name', label: 'LOCATION.FIELDS.CITY' },
+    { key: 'address.city.country.name', label: 'LOCATION.FIELDS.COUNTRY' },
   ];
 
   addressColumns: TableColumn[] = [
-    { key: 'street', label: 'Street' },
-    { key: 'number', label: 'Number' },
-    { key: 'city.name', label: 'City' },
-    { key: 'city.country.name', label: 'Country' },
+    { key: 'street', label: 'LOCATION.FIELDS.STREET' },
+    { key: 'number', label: 'LOCATION.FIELDS.NUMBER' },
+    { key: 'city.name', label: 'LOCATION.FIELDS.CITY' },
+    { key: 'city.country.name', label: 'LOCATION.FIELDS.COUNTRY' },
   ];
 
   cityColumns: TableColumn[] = [
-    { key: 'name', label: 'Name' },
-    { key: 'country.name', label: 'Country' },
+    { key: 'name', label: 'LOCATION.FIELDS.NAME' },
+    { key: 'country.name', label: 'LOCATION.FIELDS.COUNTRY' },
   ];
 
-  countryColumns: TableColumn[] = [{ key: 'name', label: 'Name' }];
+  countryColumns: TableColumn[] = [{ key: 'name', label: 'LOCATION.FIELDS.NAME' }];
 
   locationFields: FormField[] = [
     {
       name: 'name',
-      label: 'Location Name',
+      label: 'LOCATION.FIELDS.NAME',
       type: 'text',
       required: true,
-      placeholder: 'Enter location name',
+      placeholder: 'LOCATION.FIELDS.PLACEHOLDERS.LOCATION_NAME',
     },
     {
       name: 'addressId',

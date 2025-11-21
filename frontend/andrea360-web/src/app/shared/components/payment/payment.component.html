@@ -1,5 +1,4 @@
 <div class="card bg-base-100 shadow-md rounded-lg p-6 w-full space-y-6">
-  <!-- Single-flow Billing -> Payment -> Review (stepper removed) -->
   <div class="space-y-6">
     <div [formGroup]="billingForm" class="space-y-4">
       <h3 class="text-xl font-bold mb-2">Billing Information</h3>
@@ -53,7 +52,6 @@
     </div>
   </div>
 
-  <!-- Single action buttons -->
   <div class="flex gap-3 justify-end mt-4">
     <button type="button" (click)="paymentComplete.emit()" class="btn btn-outline">Close</button>
     <button type="button" (click)="pay()" [disabled]="processing || !billingForm.valid || !paymentReady" class="btn btn-primary">
