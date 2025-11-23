@@ -77,6 +77,7 @@ namespace Application.Users.Update
                 updatedKeycloakUser.LastName,
                 updatedKeycloakUser.Email,
                 updatedKeycloakUser.CreatedTimestamp,
+                updatedKeycloakUser.Id,
                 updatedKeycloakUser.Enabled,
                 localUser.LocationId,
                 RealmRoles: localUser.Roles

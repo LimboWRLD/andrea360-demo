@@ -101,6 +101,7 @@ namespace Application.Users.Create
                     LastName: keycloakUser.LastName,
                     Email: keycloakUser.Email,
                     CreatedAtTimestamp: keycloakUser.CreatedTimestamp,
+                    KeycloakId: keycloakUser.Id,
                     Enabled: keycloakUser.Enabled,
                     RealmRoles: request.Roles ?? new List<string>(),
                     LocationId: localUser.LocationId

@@ -16,7 +16,7 @@ namespace Application.Scheduling.Sessions.Get
     {
         public async Task<Result<List<GetSessionResponse>>> Handle(GetSessionsQuery request, CancellationToken cancellationToken)
         {
-            List<Session> result = await context.Sessions.Where(l => !l.IsDeleted).ToListAsync(cancellationToken);
+            List<Session> result = await context.Sessions.Where(l => !l.IsDeleted).Include(s => s.Service).ToListAsync(cancellationToken);
             return Result.Success(mapper.Map<List<GetSessionResponse>>(result));
         }
     }

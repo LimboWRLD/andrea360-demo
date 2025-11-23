@@ -61,6 +61,7 @@ namespace Application.Users.Get
                     LastName: keycloakUser.LastName,
                     Email: keycloakUser.Email,
                     CreatedAtTimestamp: keycloakUser.CreatedTimestamp,
+                    KeycloakId: keycloakUser.Id,
                     Enabled: keycloakUser.Enabled,
                     LocationId: localData?.LocationId ?? Guid.Empty,
                     RealmRoles: localData?.Roles ?? new List<string>()

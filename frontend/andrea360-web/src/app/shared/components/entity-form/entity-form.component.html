@@ -11,9 +11,9 @@
             >
           </label>
 
-          <!-- Text/Number Input without Suffix -->
+          <!-- Text/Number/DateTime Input without Suffix -->
           <input
-            *ngIf="(field.type === 'text' || field.type === 'number') && !field.suffix"
+            *ngIf="(field.type === 'text' || field.type === 'number' || field.type === 'datetime-local') && !field.suffix"
             [type]="field.type"
             [formControlName]="field.name"
             [placeholder]="(field.placeholder | translate) || ''"

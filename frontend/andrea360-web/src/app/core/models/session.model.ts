@@ -1,7 +1,7 @@
 export interface Session {
     id: string,
-    startTime: Date,
-    endTime: Date,
+    startTime: string,
+    endTime: string,
     locationId: string,
     locationName: string,
     serviceId: string,

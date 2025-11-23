@@ -6,7 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 export interface FormField {
   name: string;
   label: string;
-  type: 'text' | 'select' | 'number' | 'multiselect' | 'switch';
+  type: 'text' | 'select' | 'number' | 'multiselect' | 'switch' | 'datetime-local';
   required?: boolean;
   options?: { value: any; label: string }[];
   placeholder?: string;
