@@ -52,7 +52,8 @@ export class DashboardDataService {
         const serviceMap: Record<string, number> = {};
         sessions.filter(s => (s.startTime||'') >= weekStr).forEach(s => { serviceMap[s.serviceName] = (serviceMap[s.serviceName]||0)+1; });
         const topServiceWeekName = Object.entries(serviceMap).sort((a,b)=>b[1]-a[1])[0]?.[0];
-        const revenueToday = transactions.filter(t => (t.createdAt||'').startsWith(today)).reduce((sum,t)=>sum+(t.amount||0),0);
+        console.log("Transactions", transactions)
+        const revenueToday = transactions.filter(t => (t.transactionDate||'').startsWith(today)).reduce((sum,t)=>sum+(t.amount||0),0);
         const newMembersToday = users.filter(u => (u.createdAtTimestamp && new Date(u.createdAtTimestamp).toISOString().substring(0,10)===today)).length;
         return {
           locationCount: locations.length,
