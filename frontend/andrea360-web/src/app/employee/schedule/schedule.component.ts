@@ -40,10 +40,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe((user) => {
-      console.log('AuthService user loaded:', user);
-
       if (user?.locationId) {
-        console.log('Location ID found:', user.locationId);
         this.loadSessions();
       } else {
         console.warn('Location ID missing, waiting...');
@@ -93,8 +90,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   openForm(session?: any) {
     this.selectedSession = session || null;
-    console.log("Session", session);
-    
     this.showForm = true;
   }
 
@@ -117,10 +112,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       startTime: this.convertToUtc(formValue.startTime),
       endTime: this.convertToUtc(formValue.endTime),
     };
-
-    console.log("Form value", formValue);
-    console.log(this.selectedSession);
-    
 
     if (this.selectedSession) {
       this.dynamicService

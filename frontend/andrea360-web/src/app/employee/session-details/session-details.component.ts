@@ -126,8 +126,6 @@ export class SessionDetailsComponent implements OnInit {
       sessionId: this.session?.id,
     };
 
-    console.log(payload);
-
     if (this.selectedReservation) {
       this.http
         .update('reservations', this.selectedReservation.id, payload)

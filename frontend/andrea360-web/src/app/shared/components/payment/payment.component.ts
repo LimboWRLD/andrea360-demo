@@ -85,7 +85,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   onElementsReady(elements: any) {
-    console.log('Elements ready:', elements);
     this.elementsInstance = elements;
     this.paymentReady = true;
   }
@@ -127,11 +126,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
             return;
           }
           if (result.paymentIntent && result.paymentIntent.status === 'succeeded') {
-            console.log('Payment succeeded!', result.paymentIntent);
             this.onSuccess(result.paymentIntent.id);
             this.paymentComplete.emit();
           } else {
-            console.log('Payment result (not succeeded yet)', result);
+            this.snackService.show("Payment not yet succeeded.", 'info');
           }
         },
         (err: any) => {
@@ -142,7 +140,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   onSuccess(stripeId: string) {
-    console.log('Success! Posting transaction', { StripeTransactionId : stripeId, serviceId: this.serviceId, amount: this.servicePrice });
     this.httpService
       .create('transactions', {
         userId: this.currentUserId,

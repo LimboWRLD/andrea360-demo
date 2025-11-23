@@ -55,8 +55,6 @@ export class MembersComponent {
         const currentUser = users.find(u => u.email === currentUserEmail);
         if (currentUser) {
           this.currentLocationId = currentUser.locationId;
-          console.log(this.currentLocationId);
-          
           this.members =  users.filter(u => u.realmRoles.includes('member') && u.locationId === this.currentLocationId);
           this.filteredMembers =  users.filter(u => u.realmRoles.includes('member') && u.locationId === this.currentLocationId);
         }
@@ -75,8 +73,6 @@ export class MembersComponent {
   }
 
   onSubmit(data: any) {
-    console.log(data);
-    
     data.locationId = this.currentLocationId;
     data.realmRoles = ['member'];
     
