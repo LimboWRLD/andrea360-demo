@@ -192,7 +192,6 @@ onDelete(entity: any): void {
   this.httpService.delete(this.activeTab, entity.id)
     .subscribe({
       next: () => {
-        console.log('Deleted (soft) successfully');
         this.loadData();
       },
       error: err => {
@@ -207,7 +206,6 @@ onDelete(entity: any): void {
         .update(this.activeTab, this.selectedEntity.id, data)
         .subscribe({
           next: () => {
-            console.log('Updated successfully');
             this.closeForm();
             this.loadData();
           },
@@ -218,7 +216,6 @@ onDelete(entity: any): void {
     } else {
       this.httpService.create(this.activeTab, data).subscribe({
         next: () => {
-          console.log('Created successfully');
           this.closeForm();
           this.loadData();
         },

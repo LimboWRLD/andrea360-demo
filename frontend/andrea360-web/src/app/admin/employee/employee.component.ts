@@ -57,8 +57,6 @@ export class EmployeeComponent {
   loadData() {
     this.http.getAll<User[]>('users').subscribe((users) => {
       this.employees = users;
-      console.log(users);
-      
       this.filteredEmployees = users;
     });
 
@@ -89,8 +87,6 @@ export class EmployeeComponent {
   }
 
   onSubmit(data: any) {
-    console.log(data);
-    
     if (this.selectedEmployee) {
       this.http.update('users', this.selectedEmployee.id, data).subscribe(() => {
         this.closeForm();

@@ -43,8 +43,8 @@ namespace Infrastructure.Configurations.Users
                 .HasForeignKey(x => x.LocationId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(x => x.UserSessions)
-                .WithOne()
+            builder.HasMany(x => x.UserServices)
+                .WithOne(u => u.User)
                 .HasForeignKey(us => us.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
@@ -54,7 +54,7 @@ namespace Infrastructure.Configurations.Users
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(x => x.Reservations)
-                .WithOne()
+                .WithOne(r => r.User)
                 .HasForeignKey(s => s.UserId) 
                 .OnDelete(DeleteBehavior.Cascade);
         }

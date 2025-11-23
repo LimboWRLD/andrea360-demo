@@ -21,7 +21,7 @@ namespace Domain.Users
 
         public List<string> Roles { get; set; } = new List<string>();
 
-        public ICollection<UserService> UserSessions { get; set; } = new List<UserService>();
+        public ICollection<UserService> UserServices { get; set; } = new List<UserService>();
 
         public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 

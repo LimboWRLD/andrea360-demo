@@ -15,8 +15,6 @@ export class AppComponent {
 
   ngOnInit(): void {
     if (this.keycloak.authenticated) {
-      console.log(this.keycloak.token);
-      
     } else {
       const checkLoginInterval = setInterval(() => {
         if (this.keycloak.authenticated) {

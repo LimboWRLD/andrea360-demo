@@ -7,7 +7,7 @@ using RestAPI.Infrastructure;
 
 namespace RestAPI.Endpoints.Locations.Locations
 {
-    public sealed record UpdateRequest(Guid LocationId, string Name, Guid AddressId);
+    public sealed record UpdateRequest(Guid Id, string Name, Guid AddressId);
 
     public class Update : Endpoint<UpdateRequest, GetLocationResponse>
     {
@@ -26,7 +26,7 @@ namespace RestAPI.Endpoints.Locations.Locations
 
         public override async Task HandleAsync(UpdateRequest req, CancellationToken ct)
         {
-            var command = new UpdateLocationCommand(req.LocationId, req.Name, req.AddressId);
+            var command = new UpdateLocationCommand(req.Id, req.Name, req.AddressId);
 
             var result = await _sender.Send(command, ct);
 

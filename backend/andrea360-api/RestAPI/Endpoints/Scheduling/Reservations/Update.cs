@@ -7,7 +7,7 @@ using RestAPI.Infrastructure;
 
 namespace RestAPI.Endpoints.Scheduling.Reservations
 {
-    public sealed record UpdateRequest(Guid ReservationId, Guid UserId, Guid SessionId, DateTime ReservedAt, Boolean IsCancelled);
+    public sealed record UpdateRequest(Guid Id, Guid UserId, Guid SessionId, DateTime ReservedAt, Boolean IsCancelled);
 
     public class Update : Endpoint<UpdateRequest, GetLocationResponse>
     {
@@ -25,7 +25,7 @@ namespace RestAPI.Endpoints.Scheduling.Reservations
 
         public override async Task HandleAsync(UpdateRequest req, CancellationToken ct)
         {
-            var command = new UpdateReservationCommand(req.ReservationId, req.UserId, req.SessionId, req.ReservedAt, req.IsCancelled);
+            var command = new UpdateReservationCommand(req.Id, req.UserId, req.SessionId, req.ReservedAt, req.IsCancelled);
 
             var result = await _sender.Send(command, ct);
 

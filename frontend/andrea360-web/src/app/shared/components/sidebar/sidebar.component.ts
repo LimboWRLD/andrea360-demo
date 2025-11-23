@@ -17,7 +17,6 @@ export class SidebarComponent {
   navLinks;
 
   constructor(private sanitizer: DomSanitizer, public translate: TranslateService) {
-    console.log(translate.getCurrentLang())
     this.navLinks = [
       {
         route: '/locations',
@@ -56,7 +55,7 @@ export class SidebarComponent {
         roles: ['member'],
       },
       {
-        route: '/schedule',
+        route: '/booking',
         label: 'SIDEBAR.BOOKING',
         iconPath: sanitizer.bypassSecurityTrustHtml(ICONS.calendarBooking),
         roles: ['member'],

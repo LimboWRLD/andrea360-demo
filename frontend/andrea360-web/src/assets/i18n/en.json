@@ -1,6 +1,6 @@
 {
   "HEADER": {
-    "HOME": "Home",
+    "HOME": "Andrea360 Demo",
     "ADMIN": "Administration",
     "LOGOUT": "Logout",
     "TOGGLE": "Toggle Sidebar"
@@ -201,15 +201,106 @@
     "PROCESSING": "Processing Payment...",
     "PAY_BUTTON": "Pay"
   },
+  "SESSION": {
+    "TITLE": "Session management",
+    "CREATE": "Create Session",
+    "DETAILS": "Session Details",
+    "LOCATION": "Location",
+    "RESERVATIONS": "Reservations",
+    "NO_RESERVATIONS": "No reservations yet",
+    "NO_SESSIONS": "No Sessions Available.",
+    "CAPACITY_STATUS": "Capacity",
+    "AVAILABLE_SPOTS": "Available Spots",
+    "FIELDS": {
+      "START_TIME": "Start Time",
+      "END_TIME": "End Time",
+      "SERVICE": "Service",
+      "CAPACITY": "Max Capacity"
+    },
+    "FORM":{
+      "TITLE":"Session form"
+    }
+  },
+  "RESERVATION": {
+    "SUBTITLE": "Reserve your spot for upcoming sessions",
+    "FILTER_DATE": "Filter by Date",
+    "CLEAR_FILTER": "Clear Filter",
+    "TODAY": "Today",
+    "SPOTS_AVAILABLE": "spots available",
+    "FULLY_BOOKED": "Fully Booked",
+    "RESERVE": "Reserve Now",
+    "PROCESSING": "Processing...",
+    "NO_SESSIONS": "No Sessions Available",
+    "NO_SESSIONS_FILTER": "No sessions found for the selected date",
+    "NO_SESSIONS_AVAILABLE": "There are no upcoming sessions at this time",
+    "ERROR_GENERIC": "An error occurred. Please check your training credits.",
+    "FIELDS": {
+      "MEMBER_NAME": "Member Name",
+      "MEMBER_EMAIL": "Member Email",
+      "RESERVED_AT": "Reserved At",
+      "CANCELED": "Canceled"
+    },
+    "FORM": {
+      "TITLE": "Reservation Form"
+    },
+    "PAGE_TITLE": "Available Sessions",
+    "PAGE_SUBTITLE": "Book your sessions below",
+    "START": "Start",
+    "END": "End",
+    "YOUR_REMAINING": "Your remaining sessions:",
+    "CAPACITY_LABEL": "Capacity",
+    "UNAVAILABLE": "Unavailable",
+    "SESSION_FULL": "Session is full",
+    "NO_SERVICE": "You need to purchase this service to book",
+    "ALREADY_RESERVED": "You have already reserved this session",
+    "UNAVAILABLE_GENERIC": "You cannot reserve this session",
+    "NO_AVAILABLE_SESSIONS_LIST": "No available sessions at this time. Check back later!",
+    "NO_ACTIVE_SERVICES": "You don't have any active services. Purchase a service to start booking sessions!",
+    "NO_AVAILABLE_SESSIONS_FOR_SERVICE": "You do not have available sessions for this service.",
+    "SUCCESS": "Reservation created successfully!",
+    "CREATE_FAILED": "Failed to create reservation. Please try again."
+  },
   "COMMON": {
     "SAVE": "Save",
     "ACTIONS": "Actions",
     "NO_DATA": "No data available",
+    "VIEW": "Details",
     "EDIT": "Edit",
     "DELETE": "Delete",
     "CREATE": "Create",
     "REQUIRED": "is required",
     "UPDATE": "Update",
-    "CANCEL": "Cancel"
+    "CANCEL": "Cancel",
+    "BACK": "Back",
+    "ACCOUNT": "Account",
+    "LOGOUT": "Logout"
+  },
+  "ENTITY": {
+    "SESSION": "Session"
+  },
+  "DASHBOARD": {
+    "COMMON": {"PROFILE": "Profile"},
+    "ADMIN": {
+      "LOCATIONS": "Locations","LOCATIONS_DESC": "Total locations",
+      "SERVICES": "Services","SERVICES_DESC": "Active services",
+      "RESERVATIONS_TODAY": "Reservations Today","RESERVATIONS_TODAY_DESC": "Today's",
+      "SESSIONS_TODAY": "Sessions Today","SESSIONS_TODAY_DESC": "Total",
+      "TOP_SERVICE_WEEK": "Top Service Week","TOP_SERVICE_WEEK_DESC": "By reservations",
+      "REVENUE_TODAY": "Revenue Today","REVENUE_TODAY_DESC": "Transactions",
+      "NEW_MEMBERS_TODAY": "New Members","NEW_MEMBERS_TODAY_DESC": "Today"
+    },
+    "EMPLOYEE": {
+      "TODAYS_SCHEDULE": "Today's Schedule","NO_SESSIONS_TODAY": "No sessions today",
+      "NEXT_SESSION": "Next Session","NEXT_SESSION_DESC": "Time",
+      "REMAINING_SESSIONS": "Remaining Sessions","REMAINING_SESSIONS_DESC": "Today",
+      "LAST_RESERVATIONS": "Last Reservations","LAST_RESERVATIONS_DESC": "Count",
+      "TOP_SERVICE": "Top Service Performed","TOP_SERVICE_DESC": "By sessions"
+    },
+    "MEMBER": {
+      "RECOMMENDED_SERVICES": "Recommended Services","PURCHASE_HISTORY": "Recent Purchase History",
+      "NEXT_RESERVATION": "Next Reservation","NEXT_RESERVATION_DESC": "Date",
+      "TOTAL_RESERVATIONS": "Total Reservations","TOTAL_RESERVATIONS_DESC": "So far",
+      "LOYALTY": "Loyalty","LOYALTY_DESC": "Points"
+    }
   }
 }

@@ -21,11 +21,32 @@ export class DataTableComponent {
   @Output() onEdit = new EventEmitter<any>();
   @Output() onDelete = new EventEmitter<any>();
 
-  getValue(row: any, column: TableColumn): string {
-    if (column.render) {
-      return column.render(row[column.key], row);
-    }
-    
+  sortColumn: string | null = null;
+  sortDirection: 'asc' | 'desc' = 'asc';
+
+  get sortedData(): any[] {
+    if (!this.sortColumn) return this.data;
+
+    return [...this.data].sort((a, b) => {
+      const aValue = this.getValue(a, { key: this.sortColumn!, label: '' });
+      const bValue = this.getValue(b, { key: this.sortColumn!, label: '' });
+
+      if (aValue == null) return 1;
+      if (bValue == null) return -1;
+
+      if (typeof aValue === 'number' && typeof bValue === 'number') {
+        return this.sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
+      }
+
+      return this.sortDirection === 'asc'
+        ? String(aValue).localeCompare(String(bValue))
+        : String(bValue).localeCompare(String(aValue));
+    });
+  }
+
+  getValue(row: any, column: TableColumn): any {
+    if (column.render) return column.render(row[column.key], row);
+
     const keys = column.key.split('.');
     let value = row;
     for (const key of keys) {
@@ -40,5 +61,14 @@ export class DataTableComponent {
 
   deleteRow(row: any): void {
     this.onDelete.emit(row);
+  }
+
+  sortBy(column: TableColumn): void {
+    if (this.sortColumn === column.key) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = column.key;
+      this.sortDirection = 'asc';
+    }
   }
 }

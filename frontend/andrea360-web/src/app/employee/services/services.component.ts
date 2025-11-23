@@ -53,8 +53,6 @@ export class ServicesComponent {
   }
 
   onSubmit(data: any) {
-    console.log(data);
-    
     if (this.selectedService) {
       this.http.update('services', this.selectedService.id, data).subscribe(() => {
         this.closeForm();

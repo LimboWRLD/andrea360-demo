@@ -8,6 +8,7 @@ namespace Application.Users.Get
     string LastName,
     string Email,
     long CreatedAtTimestamp,
+    String KeycloakId,
     bool? Enabled,
     Guid LocationId,
     IEnumerable<string>RealmRoles

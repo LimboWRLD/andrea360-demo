@@ -8,11 +8,13 @@ services:
       - ASPNETCORE_URLS=http://+:5000
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=andrea360;Username=postgres;Password=postgres;
       - Jwt__ClientId=andrea360-frontend
-      - Jwt__Audience=account
+      - Jwt__Audience=andrea360-frontend
       - Jwt__Issuer=http://localhost:8080/realms/andrea360-realm
       - Jwt__MetaDataAddress=http://keycloak:8080/realms/andrea360-realm/.well-known/openid-configuration
       - Jwt__Authority=http://keycloak:8080/realms/andrea360-realm
       - Keycloak__ServerUrl=http://keycloak:8080
+      - Keycloak__AuthClientSecret=${KEYCLOAK_CLIENT_SECRET}
+      - Stripe__SecretKey=${STRIPE_SECRET_KEY}
     depends_on:
       - postgres
       - keycloak
@@ -28,7 +30,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=andrea360
     volumes:
-      - ./infrastructure/db.sql:/docker-entrypoint-initdb.d/db.sql
+      - ./infrastructure/db:/docker-entrypoint-initdb.d
       - andrea360-data:/var/lib/postgresql/data
     ports:
       - 5450:5432
@@ -76,6 +78,8 @@ services:
     build: 
         context: ../../frontend/andrea360-web
         dockerfile: Dockerfile
+    depends_on:
+    - restapi
     ports:
       - "4200:80"         
     restart: always

@@ -1,0 +1,77 @@
+<ng-container *ngIf="auth.getCurrentUser() | async as u; else loading">
+  <div class="mx-auto p-6 grid gap-6 max-w-5xl">
+
+    <section *ngIf="auth.hasRole('admin')" class="grid gap-6">
+      <div class="stats shadow bg-base-200">
+        <div class="stat"><div class="stat-title">{{ 'DASHBOARD.ADMIN.LOCATIONS' | translate }}</div><div class="stat-value">{{ locationCount ?? '--' }}</div><div class="stat-desc">{{ 'DASHBOARD.ADMIN.LOCATIONS_DESC' | translate }}</div></div>
+        <div class="stat"><div class="stat-title">{{ 'DASHBOARD.ADMIN.SERVICES' | translate }}</div><div class="stat-value">{{ activeServicesCount ?? '--' }}</div><div class="stat-desc">{{ 'DASHBOARD.ADMIN.SERVICES_DESC' | translate }}</div></div>
+        <div class="stat"><div class="stat-title">{{ 'DASHBOARD.ADMIN.RESERVATIONS_TODAY' | translate }}</div><div class="stat-value">{{ reservationsToday ?? '--' }}</div><div class="stat-desc">{{ 'DASHBOARD.ADMIN.RESERVATIONS_TODAY_DESC' | translate }}</div></div>
+        <div class="stat"><div class="stat-title">{{ 'DASHBOARD.ADMIN.SESSIONS_TODAY' | translate }}</div><div class="stat-value">{{ sessionsToday ?? '--' }}</div><div class="stat-desc">{{ 'DASHBOARD.ADMIN.SESSIONS_TODAY_DESC' | translate }}</div></div>
+      </div>
+      <div class="stats shadow bg-base-200">
+        <div class="stat"><div class="stat-title">{{ 'DASHBOARD.ADMIN.TOP_SERVICE_WEEK' | translate }}</div><div class="stat-value">{{ topServiceWeekName || '--' }}</div><div class="stat-desc">{{ 'DASHBOARD.ADMIN.TOP_SERVICE_WEEK_DESC' | translate }}</div></div>
+        <div class="stat"><div class="stat-title">{{ 'DASHBOARD.ADMIN.REVENUE_TODAY' | translate }}</div><div class="stat-value">{{ revenueToday ?? '--' }}</div><div class="stat-desc">{{ 'DASHBOARD.ADMIN.REVENUE_TODAY_DESC' | translate }}</div></div>
+        <div class="stat"><div class="stat-title">{{ 'DASHBOARD.ADMIN.NEW_MEMBERS_TODAY' | translate }}</div><div class="stat-value">{{ newMembersToday ?? '--' }}</div><div class="stat-desc">{{ 'DASHBOARD.ADMIN.NEW_MEMBERS_TODAY_DESC' | translate }}</div></div>
+      </div>
+    </section>
+
+    <section *ngIf="!auth.hasRole('admin') && auth.hasRole('employee')" class="grid gap-6">
+      <div class="stats shadow bg-base-200">
+        <div class="stat"><div class="stat-title">{{ 'DASHBOARD.EMPLOYEE.NEXT_SESSION' | translate }}</div><div class="stat-value">{{ nextSessionTime || '--' }}</div><div class="stat-desc">{{ 'DASHBOARD.EMPLOYEE.NEXT_SESSION_DESC' | translate }}</div></div>
+        <div class="stat"><div class="stat-title">{{ 'DASHBOARD.EMPLOYEE.REMAINING_SESSIONS' | translate }}</div><div class="stat-value">{{ remainingSessionsToday ?? '--' }}</div><div class="stat-desc">{{ 'DASHBOARD.EMPLOYEE.REMAINING_SESSIONS_DESC' | translate }}</div></div>
+        <div class="stat"><div class="stat-title">{{ 'DASHBOARD.EMPLOYEE.LAST_RESERVATIONS' | translate }}</div><div class="stat-value">{{ lastReservationsCount ?? '--' }}</div><div class="stat-desc">{{ 'DASHBOARD.EMPLOYEE.LAST_RESERVATIONS_DESC' | translate }}</div></div>
+      </div>
+      <div class="stats shadow bg-base-200">
+        <div class="stat"><div class="stat-title">{{ 'DASHBOARD.EMPLOYEE.TOP_SERVICE' | translate }}</div><div class="stat-value">{{ topEmployeeServiceName || '--' }}</div><div class="stat-desc">{{ 'DASHBOARD.EMPLOYEE.TOP_SERVICE_DESC' | translate }}</div></div>
+      </div>
+      <div class="card bg-base-200 shadow">
+        <div class="card-body">
+          <h3 class="card-title">{{ 'DASHBOARD.EMPLOYEE.TODAYS_SCHEDULE' | translate }}</h3>
+          <ul class="list-disc ml-5">
+            <li *ngFor="let s of todaysSchedule">{{ s.startTime }} - {{ s.serviceName }} ({{ s.locationName }})</li>
+            <li *ngIf="todaysSchedule.length === 0">{{ 'DASHBOARD.EMPLOYEE.NO_SESSIONS_TODAY' | translate }}</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section *ngIf="!auth.hasRole('admin') && !auth.hasRole('employee') && auth.hasRole('member')" class="grid gap-6">
+      <div class="stats shadow bg-base-200">
+        <div class="stat"><div class="stat-title">{{ 'DASHBOARD.MEMBER.NEXT_RESERVATION' | translate }}</div><div class="stat-value">{{ (nextReservationDate | date:'short') || '--' }}</div><div class="stat-desc">{{ 'DASHBOARD.MEMBER.NEXT_RESERVATION_DESC' | translate }}</div></div>
+        <div class="stat"><div class="stat-title">{{ 'DASHBOARD.MEMBER.TOTAL_RESERVATIONS' | translate }}</div><div class="stat-value">{{ totalReservations ?? '--' }}</div><div class="stat-desc">{{ 'DASHBOARD.MEMBER.TOTAL_RESERVATIONS_DESC' | translate }}</div></div>
+        <div class="stat"><div class="stat-title">{{ 'DASHBOARD.MEMBER.LOYALTY' | translate }}</div><div class="stat-value">{{ loyaltyPoints ?? '--' }}</div><div class="stat-desc">{{ 'DASHBOARD.MEMBER.LOYALTY_DESC' | translate }}</div></div>
+      </div>
+      <div class="card bg-base-200 shadow">
+        <div class="card-body">
+          <h3 class="card-title">{{ 'DASHBOARD.MEMBER.RECOMMENDED_SERVICES' | translate }}</h3>
+          <ul class="list-disc ml-5">
+            <li *ngFor="let rec of recommendedServices">{{ rec }}</li>
+            <li *ngIf="recommendedServices.length === 0">--</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card bg-base-200 shadow">
+        <div class="card-body">
+          <h3 class="card-title">{{ 'DASHBOARD.MEMBER.PURCHASE_HISTORY' | translate }}</h3>
+          <ul class="list-disc ml-5">
+            <li *ngFor="let h of purchaseHistory">{{ h }}</li>
+            <li *ngIf="purchaseHistory.length === 0">--</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid gap-6">
+      <div class="card bg-base-200 shadow">
+        <div class="card-body">
+          <h3 class="card-title">{{ 'DASHBOARD.COMMON.PROFILE' | translate }}</h3>
+          <p>{{ u?.firstName }} {{ u?.lastName }} ({{ u?.email }})</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</ng-container>
+<ng-template #loading>
+  <p class="ml-60 text-lg text-gray-500 animate-pulse">Loading user...</p>
+</ng-template>

@@ -15,7 +15,7 @@ namespace Application.Scheduling.Reservations.Get
     {
         public async Task<Result<List<GetReservationResponse>>> Handle(GetReservationsQuery request, CancellationToken cancellationToken)
         {
-            List<Reservation> result = await context.Reservations.Where(l => !l.IsDeleted).ToListAsync(cancellationToken);
+            List<Reservation> result = await context.Reservations.Where(l => !l.IsDeleted).Include(u => u.User).ToListAsync(cancellationToken);
             return Result.Success(mapper.Map<List<GetReservationResponse>>(result));
         }
     }

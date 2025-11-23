@@ -28,7 +28,7 @@ namespace Infrastructure.Configurations.Scheduling
                 .IsRequired();
 
             builder.HasOne(x => x.Location)
-                .WithMany()
+                .WithMany(l => l.Sessions)
                 .HasForeignKey(x => x.LocationId)
                 .OnDelete(DeleteBehavior.Cascade);
 

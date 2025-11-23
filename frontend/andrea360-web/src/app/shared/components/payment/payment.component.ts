@@ -6,6 +6,7 @@ import { DynamicService } from '../../../core/dynamic.service';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../core/models/user.model';
 import Keycloak from 'keycloak-js';
+import { SnackService } from '../../../core/snack/snack.service';
 
 @Component({
   selector: 'app-payment',
@@ -24,6 +25,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   private readonly fb = inject(UntypedFormBuilder);
   private httpService = inject(DynamicService);
   private keycloak = inject(Keycloak);
+  private snackService = inject(SnackService);
 
   stripe = injectStripe();
 
@@ -43,20 +45,18 @@ export class PaymentComponent implements OnInit, OnDestroy {
   };
 
   clientSecret: string | null = null;
-  elementsInstance: any = null; // store real Elements group
+  elementsInstance: any = null;
   paymentReady = false;
   processing = false;
   currentUserId: string | null = null;
 
   ngOnInit() {
-    // Prefill billing info from Keycloak token (if present)
     const email = this.keycloak.tokenParsed?.['email'];
     const givenName = this.keycloak.tokenParsed?.['given_name'] || '';
     const familyName = this.keycloak.tokenParsed?.['family_name'] || '';
 
     if (email) {
       this.billingForm.patchValue({ email, firstName: givenName, lastName: familyName });
-      // find current user id
       this.httpService.getAll<User[]>('users').subscribe((users) => {
         const u = users.find((x) => x.email === email);
         if (u) {
@@ -68,7 +68,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // nothing to cleanup for now
   }
 
   private createPaymentIntent() {
@@ -86,7 +85,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   onElementsReady(elements: any) {
-    console.log('Elements ready:', elements);
     this.elementsInstance = elements;
     this.paymentReady = true;
   }
@@ -106,8 +104,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
     const billingName = `${this.billingForm.get('firstName')?.value} ${this.billingForm.get('lastName')?.value}`;
     const billingEmail = this.billingForm.get('email')?.value as string;
 
-    console.log('Calling stripe.confirmPayment with elements', this.elementsInstance);
-
     this.stripe
       .confirmPayment({
         elements: this.elementsInstance,
@@ -123,20 +119,17 @@ export class PaymentComponent implements OnInit, OnDestroy {
         (result: any) => {
           this.processing = false;
           if (result.error) {
-            // Stripe SDK returns helpful error objects for troubleshooting
             console.error('Payment error', result.error);
-            // If it's an invalid_request_error we log the request URL to help debugging
             if (result.error.type === 'invalid_request_error' && result.error.request_log_url) {
               console.error('Stripe request log:', result.error.request_log_url);
             }
             return;
           }
           if (result.paymentIntent && result.paymentIntent.status === 'succeeded') {
-            console.log('Payment succeeded!', result.paymentIntent);
             this.onSuccess(result.paymentIntent.id);
             this.paymentComplete.emit();
           } else {
-            console.log('Payment result (not succeeded yet)', result);
+            this.snackService.show("Payment not yet succeeded.", 'info');
           }
         },
         (err: any) => {
@@ -147,7 +140,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   onSuccess(stripeId: string) {
-    console.log('Success! Posting transaction', { StripeTransactionId : stripeId, serviceId: this.serviceId, amount: this.servicePrice });
     this.httpService
       .create('transactions', {
         userId: this.currentUserId,
@@ -156,7 +148,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
         StripeTransactionId : stripeId
       })
       .subscribe(() => {
-        console.log('Transaction completed successfully');
+        this.snackService.show("Transaction succesfull!", 'success');
       });
   }
 }

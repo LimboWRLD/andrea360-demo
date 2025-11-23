@@ -73,8 +73,6 @@ export class MembersComponent {
   }
 
   onSubmit(data: any) {
-    console.log(data);
-    
     data.locationId = this.currentLocationId;
     data.realmRoles = ['member'];
     
