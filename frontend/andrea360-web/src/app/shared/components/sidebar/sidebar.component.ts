@@ -56,7 +56,7 @@ export class SidebarComponent {
         roles: ['member'],
       },
       {
-        route: '/schedule',
+        route: '/booking',
         label: 'SIDEBAR.BOOKING',
         iconPath: sanitizer.bypassSecurityTrustHtml(ICONS.calendarBooking),
         roles: ['member'],
