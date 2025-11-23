@@ -1,0 +1,17 @@
+node_modules
+dist
+.angular
+.vscode
+.git
+.gitignore
+Dockerfile*
+docker-compose*
+coverage
+**/*.md
+**/*.log
+tmp
+*.tsbuildinfo
+*.pdf
+*.zip
+*.mp4
+*.mov
