@@ -6,7 +6,7 @@ using RestAPI.Infrastructure;
 
 namespace RestAPI.Endpoints.Billing.Transactions
 {
-    public sealed record UpdateRequest(Guid TransactionId, Guid UserId, Guid ServiceId, decimal Amount, DateTime TransactionDate, string StripeTransactionId);
+    public sealed record UpdateRequest(Guid Id, Guid UserId, Guid ServiceId, decimal Amount, DateTime TransactionDate, string StripeTransactionId);
 
     public class Update : Endpoint<UpdateRequest, Guid>
     {
@@ -25,7 +25,7 @@ namespace RestAPI.Endpoints.Billing.Transactions
 
         public override async Task HandleAsync(UpdateRequest req, CancellationToken ct)
         {
-            var command = new UpdateTransactionCommand(req.TransactionId, req.UserId, req.ServiceId, req.Amount, req.TransactionDate, req.StripeTransactionId);
+            var command = new UpdateTransactionCommand(req.Id, req.UserId, req.ServiceId, req.Amount, req.TransactionDate, req.StripeTransactionId);
 
             var result = await _sender.Send(command, ct);
 

@@ -7,6 +7,7 @@ using RestAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddEnvironmentVariables();
 
 builder.Services
     .AddApplication(builder.Configuration)
@@ -31,8 +32,8 @@ builder.Services.AddCors(options =>
 var keycloakSettings = builder.Configuration.GetSection("Keycloak");
 Console.WriteLine($"--- DEBUG KEYCLOAK ---");
 Console.WriteLine($"URL: {keycloakSettings["Url"]}");
-Console.WriteLine($"AdminClientId: {keycloakSettings["AdminClientId"]}");
-Console.WriteLine($"AdminClientSecret: {keycloakSettings["AdminClientSecret"]}");
+Console.WriteLine($"AdminClientId: {keycloakSettings["AuthClientId"]}");
+Console.WriteLine($"AdminClientSecret: {keycloakSettings["AuthClientSecret"]}");
 Console.WriteLine($"----------------------");
 
 var app = builder.Build();
@@ -57,6 +58,6 @@ app.UseFastEndpoints(config =>
     config.Endpoints.RoutePrefix = "api";
 }).UseSwaggerGen();
 
-app.MapHub<NotificationHub>("/notificationHub");
+app.MapHub<NotificationHub>("/hubs/scheduling");
 
 app.Run();

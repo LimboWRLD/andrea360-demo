@@ -13,6 +13,8 @@ services:
       - Jwt__MetaDataAddress=http://keycloak:8080/realms/andrea360-realm/.well-known/openid-configuration
       - Jwt__Authority=http://keycloak:8080/realms/andrea360-realm
       - Keycloak__ServerUrl=http://keycloak:8080
+      - Keycloak__AuthClientSecret=${KEYCLOAK_CLIENT_SECRET}
+      - Stripe__SecretKey=${STRIPE_SECRET_KEY}
     depends_on:
       - postgres
       - keycloak
@@ -76,6 +78,8 @@ services:
     build: 
         context: ../../frontend/andrea360-web
         dockerfile: Dockerfile
+    depends_on:
+    - restapi
     ports:
       - "4200:80"         
     restart: always

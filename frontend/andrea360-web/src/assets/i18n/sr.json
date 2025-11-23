@@ -201,15 +201,78 @@
     "PROCESSING": "Obrada plaćanja...",
     "PAY_BUTTON": "Plati"
   },
+  "SESSION": {
+    "TITLE": "Upravljanje sesijama",
+    "CREATE": "Kreiraj Sesiju",
+    "DETAILS": "Detalji Sesije",
+    "RESERVATIONS": "Rezervacije",
+    "NO_RESERVATIONS": "Još nema rezervacija",
+    "NO_SESSIONS": "Nema Dostupnih Sesija.",
+    "CAPACITY_STATUS": "Kapacitet",
+    "AVAILABLE_SPOTS": "Slobodna Mesta",
+    "FIELDS": {
+      "START_TIME": "Početak",
+      "END_TIME": "Kraj",
+      "SERVICE": "Usluga",
+      "CAPACITY": "Maksimalni Kapacitet"
+    },
+    "FORM":{
+      "TITLE":"Forma za sesiju"
+    }
+  },
+  "RESERVATION": {
+    "SUBTITLE": "Rezervišite svoje mesto za predstojeće sesije",
+    "FILTER_DATE": "Filtriraj po Datumu",
+    "CLEAR_FILTER": "Očisti Filter",
+    "TODAY": "Danas",
+    "SPOTS_AVAILABLE": "mesta dostupno",
+    "FULLY_BOOKED": "Popunjeno",
+    "RESERVE": "Rezerviši Sada",
+    "PROCESSING": "Obrađuje se...",
+    "NO_SESSIONS": "Nema Dostupnih Sesija",
+    "NO_SESSIONS_FILTER": "Nema sesija za izabrani datum",
+    "NO_SESSIONS_AVAILABLE": "Trenutno nema predstojećih sesija",
+    "ERROR_GENERIC": "Došlo je do greške. Molimo proverite vaše kredite za trening.",
+    "FIELDS": {
+      "MEMBER_NAME": "Ime Člana",
+      "MEMBER_EMAIL": "Email Člana",
+      "RESERVED_AT": "Rezervisano U",
+      "CANCELED": "Otkazano"
+    },
+    "FORM": {
+      "TITLE": "Forma za rezervaciju"
+    },
+    "PAGE_TITLE": "Dostupne Sesije",
+    "PAGE_SUBTITLE": "Rezervišite svoje sesije ispod",
+    "START": "Početak",
+    "END": "Kraj",
+    "YOUR_REMAINING": "Vaše preostale sesije:",
+    "CAPACITY_LABEL": "Kapacitet",
+    "UNAVAILABLE": "Nedostupno",
+    "SESSION_FULL": "Sesija je popunjena",
+    "NO_SERVICE": "Morate kupiti ovu uslugu da biste rezervisali",
+    "ALREADY_RESERVED": "Već ste rezervisali ovu sesiju",
+    "UNAVAILABLE_GENERIC": "Ne možete rezervisati ovu sesiju",
+    "NO_AVAILABLE_SESSIONS_LIST": "Trenutno nema dostupnih sesija. Proverite kasnije!",
+    "NO_ACTIVE_SERVICES": "Nemate aktivnih usluga. Kupite uslugu da biste počeli sa rezervacijama!",
+    "NO_AVAILABLE_SESSIONS_FOR_SERVICE": "Nemate dostupnih sesija za ovu uslugu.",
+    "SUCCESS": "Rezervacija je uspešno kreirana!",
+    "CREATE_FAILED": "Neuspešno kreiranje rezervacije. Pokušajte ponovo."
+  },
   "COMMON": {
     "SAVE": "Sačuvaj",
     "ACTIONS": "Akcije",
     "NO_DATA": "Nema podataka",
+    "VIEW": "Detalji",
     "EDIT": "Izmeni",
     "DELETE": "Obrisi",
     "CREATE": "Kreiraj",
     "REQUIRED": "je obavezno",
     "UPDATE": "Ažuriraj",
-    "CANCEL": "Otkaži"
+    "CANCEL": "Otkaži",
+    "BACK": "Nazad"
+  },
+  "ENTITY": {
+    "SESSION": "Sesiju"
   }
 }

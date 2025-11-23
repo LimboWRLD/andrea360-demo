@@ -201,15 +201,78 @@
     "PROCESSING": "Processing Payment...",
     "PAY_BUTTON": "Pay"
   },
+  "SESSION": {
+    "TITLE": "Session management",
+    "CREATE": "Create Session",
+    "DETAILS": "Session Details",
+    "RESERVATIONS": "Reservations",
+    "NO_RESERVATIONS": "No reservations yet",
+    "NO_SESSIONS": "No Sessions Available.",
+    "CAPACITY_STATUS": "Capacity",
+    "AVAILABLE_SPOTS": "Available Spots",
+    "FIELDS": {
+      "START_TIME": "Start Time",
+      "END_TIME": "End Time",
+      "SERVICE": "Service",
+      "CAPACITY": "Max Capacity"
+    },
+    "FORM":{
+      "TITLE":"Session form"
+    }
+  },
+  "RESERVATION": {
+    "SUBTITLE": "Reserve your spot for upcoming sessions",
+    "FILTER_DATE": "Filter by Date",
+    "CLEAR_FILTER": "Clear Filter",
+    "TODAY": "Today",
+    "SPOTS_AVAILABLE": "spots available",
+    "FULLY_BOOKED": "Fully Booked",
+    "RESERVE": "Reserve Now",
+    "PROCESSING": "Processing...",
+    "NO_SESSIONS": "No Sessions Available",
+    "NO_SESSIONS_FILTER": "No sessions found for the selected date",
+    "NO_SESSIONS_AVAILABLE": "There are no upcoming sessions at this time",
+    "ERROR_GENERIC": "An error occurred. Please check your training credits.",
+    "FIELDS": {
+      "MEMBER_NAME": "Member Name",
+      "MEMBER_EMAIL": "Member Email",
+      "RESERVED_AT": "Reserved At",
+      "CANCELED": "Canceled"
+    },
+    "FORM": {
+      "TITLE": "Reservation Form"
+    },
+    "PAGE_TITLE": "Available Sessions",
+    "PAGE_SUBTITLE": "Book your sessions below",
+    "START": "Start",
+    "END": "End",
+    "YOUR_REMAINING": "Your remaining sessions:",
+    "CAPACITY_LABEL": "Capacity",
+    "UNAVAILABLE": "Unavailable",
+    "SESSION_FULL": "Session is full",
+    "NO_SERVICE": "You need to purchase this service to book",
+    "ALREADY_RESERVED": "You have already reserved this session",
+    "UNAVAILABLE_GENERIC": "You cannot reserve this session",
+    "NO_AVAILABLE_SESSIONS_LIST": "No available sessions at this time. Check back later!",
+    "NO_ACTIVE_SERVICES": "You don't have any active services. Purchase a service to start booking sessions!",
+    "NO_AVAILABLE_SESSIONS_FOR_SERVICE": "You do not have available sessions for this service.",
+    "SUCCESS": "Reservation created successfully!",
+    "CREATE_FAILED": "Failed to create reservation. Please try again."
+  },
   "COMMON": {
     "SAVE": "Save",
     "ACTIONS": "Actions",
     "NO_DATA": "No data available",
+    "VIEW": "Details",
     "EDIT": "Edit",
     "DELETE": "Delete",
     "CREATE": "Create",
     "REQUIRED": "is required",
     "UPDATE": "Update",
-    "CANCEL": "Cancel"
+    "CANCEL": "Cancel",
+    "BACK": "Back"
+  },
+  "ENTITY": {
+    "SESSION": "Session"
   }
 }

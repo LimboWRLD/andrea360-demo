@@ -6,7 +6,7 @@ using RestAPI.Infrastructure;
 
 namespace RestAPI.Endpoints.Billing.UserServices
 {
-    public sealed record UpdateRequest(Guid UserServiceId, Guid UserId, Guid ServiceId, int RemainingSessions);
+    public sealed record UpdateRequest(Guid Id, Guid UserId, Guid ServiceId, int RemainingSessions);
 
     public class Update : Endpoint<UpdateRequest, Guid>
     {
@@ -25,7 +25,7 @@ namespace RestAPI.Endpoints.Billing.UserServices
 
         public override async Task HandleAsync(UpdateRequest req, CancellationToken ct)
         {
-            var command = new UpdateUserServiceCommand(req.UserServiceId, req.UserId, req.ServiceId, req.RemainingSessions);
+            var command = new UpdateUserServiceCommand(req.Id, req.UserId, req.ServiceId, req.RemainingSessions);
 
             var result = await _sender.Send(command, ct);
 
