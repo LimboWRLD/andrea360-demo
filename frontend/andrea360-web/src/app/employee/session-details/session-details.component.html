@@ -82,7 +82,7 @@
                   d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              {{ "LOCATION.ENTITY.LOCATIONS" | translate }}
+              {{ "SESSION.LOCATION" | translate }}
             </div>
             <span class="text-lg">{{ session.locationName }}</span>
           </div>
@@ -137,7 +137,7 @@
       </div>
     </div>
 
-    <div class="card bg-base-100 shadow-xl">
+    <div class="card bg-base-100 shadow-xl" *ngIf="showForm === false">
       <div class="card-body">
         <div class="flex items-center justify-between mb-4">
           <h2 class="card-title text-2xl">

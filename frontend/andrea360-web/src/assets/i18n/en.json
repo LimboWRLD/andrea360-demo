@@ -205,6 +205,7 @@
     "TITLE": "Session management",
     "CREATE": "Create Session",
     "DETAILS": "Session Details",
+    "LOCATION": "Location",
     "RESERVATIONS": "Reservations",
     "NO_RESERVATIONS": "No reservations yet",
     "NO_SESSIONS": "No Sessions Available.",
