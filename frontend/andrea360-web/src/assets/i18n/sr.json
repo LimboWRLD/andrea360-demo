@@ -1,6 +1,6 @@
 {
   "HEADER": {
-    "HOME": "Početna",
+    "HOME": "Andrea360 Demo",
     "ADMIN": "Administracija",
     "LOGOUT": "Odjavi se",
     "TOGGLE": "Prikaži/Sakrij meni"
@@ -270,9 +270,36 @@
     "REQUIRED": "je obavezno",
     "UPDATE": "Ažuriraj",
     "CANCEL": "Otkaži",
-    "BACK": "Nazad"
+    "BACK": "Nazad",
+    "ACCOUNT": "Profil",
+    "LOGOUT": "Odjavi se"
   },
   "ENTITY": {
     "SESSION": "Sesiju"
+  },
+  "DASHBOARD": {
+    "COMMON": {"PROFILE": "Profil"},
+    "ADMIN": {
+      "LOCATIONS": "Lokacije","LOCATIONS_DESC": "Ukupno lokacija",
+      "SERVICES": "Usluge","SERVICES_DESC": "Aktivnih usluga",
+      "RESERVATIONS_TODAY": "Rezervacije danas","RESERVATIONS_TODAY_DESC": "Današnje",
+      "SESSIONS_TODAY": "Sesije danas","SESSIONS_TODAY_DESC": "Ukupno",
+      "TOP_SERVICE_WEEK": "Top usluga nedelja","TOP_SERVICE_WEEK_DESC": "Po broju rezervacija",
+      "REVENUE_TODAY": "Prihod danas","REVENUE_TODAY_DESC": "Transakcije",
+      "NEW_MEMBERS_TODAY": "Novi članovi","NEW_MEMBERS_TODAY_DESC": "Danas"
+    },
+    "EMPLOYEE": {
+      "TODAYS_SCHEDULE": "Današnji raspored","NO_SESSIONS_TODAY": "Nema sesija danas",
+      "NEXT_SESSION": "Sledeća sesija","NEXT_SESSION_DESC": "Vreme",
+      "REMAINING_SESSIONS": "Preostale sesije","REMAINING_SESSIONS_DESC": "Danas",
+      "LAST_RESERVATIONS": "Poslednje rezervacije","LAST_RESERVATIONS_DESC": "Broj",
+      "TOP_SERVICE": "Top usluga koju izvodi","TOP_SERVICE_DESC": "Po sesijama"
+    },
+    "MEMBER": {
+      "RECOMMENDED_SERVICES": "Preporučene usluge","PURCHASE_HISTORY": "Istorija poslednjih kupovina",
+      "NEXT_RESERVATION": "Sledeća rezervacija","NEXT_RESERVATION_DESC": "Datum",
+      "TOTAL_RESERVATIONS": "Ukupno rezervacija","TOTAL_RESERVATIONS_DESC": "Do sada",
+      "LOYALTY": "Lojalnost","LOYALTY_DESC": "Poeni"
+    }
   }
 }

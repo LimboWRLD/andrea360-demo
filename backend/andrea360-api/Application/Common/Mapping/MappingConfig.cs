@@ -21,7 +21,8 @@ namespace Application.Common.Mapping
         {
             config.NewConfig<Transaction, GetTransactionResponse>();
 
-            config.NewConfig<UserService, GetUserServiceResponse>();
+            config.NewConfig<UserService, GetUserServiceResponse>()
+                .Map(dest => dest.ServiceName, src => src.Service.Name);
 
             config.NewConfig<Service, GetServiceResponse>();
 

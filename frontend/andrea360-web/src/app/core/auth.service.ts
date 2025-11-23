@@ -5,14 +5,26 @@ import { DynamicService } from './dynamic.service';
 import { User } from './models/user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private keycloak = inject(Keycloak);
   private currentUser$ = new BehaviorSubject<User | null>(null);
 
   constructor(private dynamicService: DynamicService) {
-    this.loadCurrentUser();    
+    this.loadCurrentUser();
+  }
+
+  hasRole(role: string): boolean {
+    const realmTokenRoles: string[] = this.keycloak?.tokenParsed?.['realm_access']?.['roles'] || [];
+    const resourceAccess = this.keycloak?.tokenParsed?.['resource_access'] || {};
+    const clientRoles: string[] = Object.values(resourceAccess).flatMap((r: any) => r?.roles || []);
+    const userRoles: string[] = this.currentUser$.value?.realmRoles || [];
+
+    const all = new Set<string>([...realmTokenRoles, ...clientRoles, ...userRoles]);
+    const has = all.has(role);
+
+    return has;
   }
 
   getKeycloakUserId(): string | undefined {
@@ -39,36 +51,23 @@ export class AuthService {
     return this.currentUser$.value;
   }
 
-private loadCurrentUser(): void {
-  const keycloakId = this.getKeycloakUserId();
+  private loadCurrentUser(): void {
+    const keycloakId = this.getKeycloakUserId();
 
-  console.log("[AuthService] Keycloak ID from token:", keycloakId);
-
-  if (!keycloakId) {
-    console.warn("[AuthService] No Keycloak user ID found in token.");
-    return;
-  }
-
-  this.dynamicService.getAll<User[]>('users').subscribe({
-    next: (users) => {
-      console.log("[AuthService] Loaded users from backend:", users);
-
-      const matched = users.find(u => u.keycloakId == keycloakId);
-
-      if (!matched) {
-        console.warn("[AuthService] No user in local DB matches Keycloak ID:", keycloakId);
-      } else {
-        console.log("[AuthService] Matched local user:", matched);
-      }
-
-      this.currentUser$.next(matched ?? null);
-    },
-    error: (err) => {
-      console.error("[AuthService] Failed to load current user:", err);
+    if (!keycloakId) {
+      return;
     }
-  });
-}
 
+    this.dynamicService.getAll<User[]>('users').subscribe({
+      next: (users) => {
+        const matched = users.find((u) => u.keycloakId == keycloakId);
+        this.currentUser$.next(matched ?? null);
+      },
+      error: () => {
+        this.currentUser$.next(null);
+      },
+    });
+  }
 
   refreshCurrentUser(): void {
     this.loadCurrentUser();
