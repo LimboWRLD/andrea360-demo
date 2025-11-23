@@ -1,0 +1,33 @@
+﻿using Application.Abstractions.Interfaces;
+using Application.Abstractions.Messaging;
+using Application.Locations.Countries.Get;
+using Domain.Locations;
+using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
+
+namespace Application.Locations.Countries.Update
+{
+    internal sealed class UpdateCountryCommandHandler(IApplicationDbContext context, IMapper mapper) : ICommandHandler<UpdateCountryCommand, GetCountryResponse>
+    {
+        public async Task<Result<GetCountryResponse>> Handle(UpdateCountryCommand request, CancellationToken cancellationToken)
+        {
+            Country? existingCountry = await context.Countries.FindAsync(request.CountryId, cancellationToken);
+
+            if (existingCountry is null) return Result.Failure<GetCountryResponse>
+                    (new Error("Country.NotFound", $"The country with the id '{request.CountryId} was not found.'", ErrorType.NotFound));
+
+            bool sameName = await context.Countries.AnyAsync(c => c.Name == request.Name, cancellationToken);
+
+            if (sameName) return Result.Failure<GetCountryResponse>
+                    (new Error("Country.NameTaken", $"The country name: '{request.Name}' is taken.", ErrorType.Conflict));
+
+            if (request.Name == existingCountry.Name) return Result.Failure<GetCountryResponse>
+                    (new Error("Country.SameName", $"The country already has the name: '{request.Name}', try another name.", ErrorType.Conflict));
+            existingCountry.Name = request.Name;
+
+            await context.SaveChangesAsync(cancellationToken);
+
+            return Result.Success(mapper.Map<GetCountryResponse>(existingCountry));
+        }
+    }
+}

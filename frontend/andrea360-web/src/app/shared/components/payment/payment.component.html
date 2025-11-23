@@ -1,0 +1,62 @@
+<div class="card bg-base-100 shadow-md rounded-lg p-6 w-full space-y-6">
+  <div class="space-y-6">
+    <div [formGroup]="billingForm" class="space-y-4">
+      <h3 class="text-xl font-bold mb-2">Billing Information</h3>
+
+      <div class="form-control w-full">
+        <label class="label"><span class="label-text">First Name</span></label>
+        <input type="text" placeholder="John" formControlName="firstName" class="input input-bordered w-full" />
+        <label class="label" *ngIf="billingForm.get('firstName')?.invalid && billingForm.get('firstName')?.touched">
+          <span class="label-text-alt text-error">First name is required</span>
+        </label>
+      </div>
+
+      <div class="form-control w-full">
+        <label class="label"><span class="label-text">Last Name</span></label>
+        <input type="text" placeholder="Doe" formControlName="lastName" class="input input-bordered w-full" />
+        <label class="label" *ngIf="billingForm.get('lastName')?.invalid && billingForm.get('lastName')?.touched">
+          <span class="label-text-alt text-error">Last name is required</span>
+        </label>
+      </div>
+
+      <div class="form-control w-full">
+        <label class="label"><span class="label-text">Email Address</span></label>
+        <input type="email" placeholder="user@example.com" formControlName="email" class="input input-bordered w-full" [disabled]="true" />
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <h3 class="text-xl font-bold mb-2">Payment Method</h3>
+
+      @if (clientSecret) {
+        <div class="border border-base-200 rounded-md p-4">
+          <ngx-stripe-elements [stripe]="stripe" [elementsOptions]="elementsOptions" (elements)="onElementsReady($event)">
+            <ngx-stripe-payment [options]="paymentElementOptions"></ngx-stripe-payment>
+          </ngx-stripe-elements>
+        </div>
+      } @else {
+        <div class="flex items-center justify-center p-8">
+          <span class="loading loading-spinner loading-lg"></span>
+        </div>
+      }
+    </div>
+
+    <div class="space-y-4">
+      <h3 class="text-xl font-bold mb-2">Order Summary</h3>
+      <div class="bg-base-200 p-4 rounded-lg space-y-3">
+        <div class="flex justify-between items-center"><span class="font-medium">Service Price:</span><span class="text-lg font-bold">{{ servicePrice }} EUR</span></div>
+        <div class="divider my-2"></div>
+        <div class="flex justify-between items-center"><span class="font-medium">Name:</span><span>{{ billingForm.get('firstName')?.value }} {{ billingForm.get('lastName')?.value }}</span></div>
+        <div class="flex justify-between items-center"><span class="font-medium">Email:</span><span>{{ billingForm.get('email')?.value }}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex gap-3 justify-end mt-4">
+    <button type="button" (click)="paymentComplete.emit()" class="btn btn-outline">Close</button>
+    <button type="button" (click)="pay()" [disabled]="processing || !billingForm.valid || !paymentReady" class="btn btn-primary">
+      <span *ngIf="processing"><span class="loading loading-spinner loading-sm mr-2"></span>Processing...</span>
+      <span *ngIf="!processing">Pay {{ servicePrice }} EUR</span>
+    </button>
+  </div>
+</div>

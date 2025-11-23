@@ -1,0 +1,162 @@
+{
+  "id": "96b9b253-988b-42aa-994b-d6f879466e4a",
+  "realm": "andrea360-realm",
+  "enabled": true,
+  "roles": {
+    "realm": [
+      {
+        "id": "c3c81d17-b22f-4180-8e7d-dae352c36f71",
+        "name": "employee",
+        "composite": false,
+        "clientRole": false
+      },
+      {
+        "id": "a30ffa1e-1631-4ca4-ad5f-72417ec7e112",
+        "name": "member",
+        "composite": false,
+        "clientRole": false
+      },
+      {
+        "id": "0efb258e-fbe2-48fc-ac2d-77816f32395c",
+        "name": "admin",
+        "composite": false,
+        "clientRole": false
+      }
+    ]
+  },
+  "users": [
+    {
+      "id": "67499b46-2805-4c89-bb3b-200f5fcf880a",
+      "username": "service-account-andrea360-backend",
+      "emailVerified": false,
+      "enabled": true,
+      "serviceAccountClientId": "andrea360-backend",
+      "realmRoles": ["default-roles-andrea360-realm"],
+      "clientRoles": {
+        "realm-management": ["query-users", "view-users", "manage-users"]
+      }
+    },
+    {
+      "id": "kc-admin-uuid-1234",
+      "username": "admin@andrea360.com",
+      "email": "admin@andrea360.com",
+      "firstName": "Admin",
+      "lastName": "Adminovic",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Andrea360!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["admin"]
+    },
+    {
+      "id": "kc-employee1-uuid-1234",
+      "username": "marko@andrea360.com",
+      "email": "marko@andrea360.com",
+      "firstName": "Marko",
+      "lastName": "Markovic",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Andrea360!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["employee"]
+    },
+    {
+      "id": "kc-employee2-uuid-1234",
+      "username": "jovana@andrea360.com",
+      "email": "jovana@andrea360.com",
+      "firstName": "Jovana",
+      "lastName": "Jovanovic",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Andrea360!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["employee"]
+    },
+    {
+      "id": "kc-member1-uuid-1234",
+      "username": "petar@gmail.com",
+      "email": "petar@gmail.com",
+      "firstName": "Petar",
+      "lastName": "Petrovic",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Andrea360!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["member"]
+    },
+    {
+      "id": "kc-member2-uuid-1234",
+      "username": "ana@gmail.com",
+      "email": "ana@gmail.com",
+      "firstName": "Ana",
+      "lastName": "Anic",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Andrea360!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["member"]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "andrea360-backend",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "zSYcv7f4TXTCtLKxPJ8CXww5atnwHjHX",
+      "redirectUris": ["/*"],
+      "webOrigins": ["/*"],
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "fullScopeAllowed": true
+    },
+    {
+      "clientId": "andrea360-frontend",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": ["http://localhost:4200/*"],
+      "webOrigins": ["http://localhost:4200"],
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "fullScopeAllowed": true,
+      "protocolMappers": [
+        {
+          "name": "audience-mapper",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "andrea360-frontend",
+            "access.token.claim": "true",
+            "id.token.claim": "true"
+          }
+        }
+      ]
+    }
+  ]
+}

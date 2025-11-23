@@ -1,0 +1,53 @@
+<div class="overflow-x-auto">
+  <table class="table table-zebra w-full bg-base-300">
+    <thead>
+      <tr>
+        <th
+          *ngFor="let column of columns"
+          (click)="sortBy(column)"
+          class="cursor-pointer select-none"
+        >
+          {{ column.label | translate }}
+          <span *ngIf="sortColumn === column.key">
+            <span *ngIf="sortDirection === 'asc'">▲</span>
+            <span *ngIf="sortDirection === 'desc'">▼</span>
+          </span>
+        </th>
+        <th>{{ "COMMON.ACTIONS" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="loading">
+        <td [attr.colspan]="columns.length + 1" class="text-center">
+          <span class="loading loading-spinner loading-md"></span>
+        </td>
+      </tr>
+      <tr *ngIf="!loading && data.length === 0">
+        <td [attr.colspan]="columns.length + 1" class="text-center bg-base-100">
+          {{ "COMMON.NO_DATA" | translate }}
+        </td>
+      </tr>
+      <tr *ngFor="let row of sortedData" class="hover">
+        <td *ngFor="let column of columns">{{ getValue(row, column) }}</td>
+        <td>
+          <div class="flex gap-2">
+            <button
+              class="btn btn-sm btn-primary"
+              (click)="editRow(row)"
+              aria-label="Edit"
+            >
+              {{ "COMMON.EDIT" | translate }}
+            </button>
+            <button
+              class="btn btn-sm btn-error"
+              (click)="deleteRow(row)"
+              aria-label="Delete"
+            >
+              {{ "COMMON.DELETE" | translate }}
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

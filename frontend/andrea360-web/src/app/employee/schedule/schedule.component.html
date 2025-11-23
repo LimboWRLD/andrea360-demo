@@ -1,0 +1,80 @@
+<div class="container mx-auto p-6">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">{{ "SESSION.TITLE" | translate }}</h1>
+    <button (click)="openForm()" class="btn btn-primary">
+      {{ "SESSION.CREATE" | translate }}
+    </button>
+  </div>
+
+  <div *ngIf="!showForm" class="grid gap-4">
+    <div *ngFor="let session of sessions" class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <div class="flex justify-between items-start">
+          <div class="flex-1">
+            <h2 class="card-title">{{ session.serviceName }}</h2>
+            <p class="text-sm text-gray-600">{{ session.locationName }}</p>
+            <div class="mt-2">
+              <p>
+                <strong>{{ "SESSION.FIELDS.START_TIME" | translate }}:</strong>
+                {{ session.startTime | date : "short" }}
+              </p>
+              <p>
+                <strong>{{ "SESSION.FIELDS.END_TIME" | translate }}:</strong>
+                {{ session.endTime | date : "short" }}
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-col items-end gap-2">
+            <div class="text-right">
+              <p class="font-bold">
+                {{ session.currentCapacity }} / {{ session.maxCapacity }}
+              </p>
+              <p class="text-sm text-gray-600">Capacity</p>
+            </div>
+
+            <div class="w-32 bg-gray-200 rounded-full h-2.5">
+              <div
+                class="h-2.5 rounded-full transition-all duration-300"
+                [ngClass]="getCapacityClass(session)"
+                [style.width.%]="getCapacityPercentage(session)"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-actions justify-end mt-4">
+          <a [routerLink]="['session', session.id]">
+          <button class="btn btn-sm btn-primary">
+            {{ "COMMON.VIEW" | translate }}
+          </button>
+          </a>
+
+          <button (click)="openForm(session)" class="btn btn-sm btn-info">
+            {{ "COMMON.EDIT" | translate }}
+          </button>
+          <button
+            (click)="deleteSession(session.id)"
+            class="btn btn-sm btn-error"
+          >
+            {{ "COMMON.DELETE" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="sessions.length === 0" class="text-center py-12 text-gray-500">
+      {{ "SESSION.NO_SESSIONS" | translate }}
+    </div>
+  </div>
+</div>
+
+<app-entity-form
+  *ngIf="showForm"
+  [title]="'SESSION.FORM.TITLE' | translate"
+  [fields]="sessionFields"
+  [data]="selectedSession"
+  (onSubmit)="saveFromEntityForm($event)"
+  (onCancel)="closeForm()"
+>
+</app-entity-form>
